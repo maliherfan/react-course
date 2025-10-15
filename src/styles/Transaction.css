@@ -1,0 +1,94 @@
+.desktop-view {
+  display: block;
+  width: 768px;
+  padding: 24px;
+}
+
+.mobile-view {
+  display: none;
+}
+
+.empty-state {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  min-height: 500px; 
+}
+
+.transaction-table {
+  width: 100%;
+  max-width: 768px;
+  border-collapse: collapse;
+  text-align: right;
+}
+
+.transaction-table th {
+  padding: 16px;
+  border-bottom: 1px solid #a0ccf8;
+  font-weight: 500;
+  color: #333;
+}
+
+.transaction-table td {
+  padding: 14px 16px;
+}
+
+.income {
+  color: #2e7d32;
+  font-weight: bold;
+  direction: ltr;
+}
+
+.outcome {
+  color: #c62828;
+  font-weight: bold;
+  direction: ltr;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+@media (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .mobile-view {
+    display: block;
+  }
+
+  /* mobile style */
+  .mobile-view .transaction-card {
+    background-color: #fbfbfc;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-view .card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .mobile-view .card-description-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
