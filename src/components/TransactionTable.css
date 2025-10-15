@@ -1,0 +1,69 @@
+
+.desktop-view {
+  display: block;
+}
+
+.mobile-view {
+  display: none;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+}
+
+.transaction-table th {
+  padding: 16px;
+  border-bottom: 1px solid #a0ccf8;
+  font-weight: 500;
+  color: #333;
+}
+
+.transaction-table td {
+  padding: 14px 16px;
+}
+
+.income {
+  color: #2e7d32;
+  font-weight: bold;
+  direction: ltr;
+}
+
+.outcome {
+  color: #c62828;
+  font-weight: bold;
+  direction: ltr;
+}
+
+/* mobile style */
+.mobile-view .transaction-card {
+  background-color: #fbfbfc;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 8px;  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-view .card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+
+.mobile-view .card-description{
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .mobile-view {
+    display: block;    
+  }
+}
