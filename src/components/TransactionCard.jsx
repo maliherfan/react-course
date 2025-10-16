@@ -2,12 +2,6 @@ import React from 'react';
 import "../styles/Transaction.css"
 
 const TransactionCard = ({ transaction, onDelete }) => {
-  const handleDelete = () => {
-    if (window.confirm(`آیا از حذف تراکنش "${transaction.description}" مطمئن هستید؟`)) {
-      onDelete(transaction.id);
-    }
-  };
-
   return (
     <div className="transaction-card">
       <div className="card-body">
@@ -27,7 +21,7 @@ const TransactionCard = ({ transaction, onDelete }) => {
         <span>{transaction.description || 'بدون شرح'}</span>
         <button
           className="delete-btn"
-          onClick={handleDelete}
+          onClick={() => onDelete(transaction.id)}
           title="حذف تراکنش"
         >
           <i className="fa fa-trash"></i>

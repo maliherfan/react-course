@@ -1,6 +1,62 @@
+.transaction-container {
+  width: 100%;
+  max-width: 768px;
+  min-height: 820px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  margin: 111px auto;
+  padding: 36px 24px;
+  border-radius: 16px;
+  background-color: #fff;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+
+.app-header h1 {
+  width: 79px;
+  height: 31px;
+  font-size: 20px;
+  line-height: 100%;
+}
+
+.app-header .plus {
+  border: 1px solid white;
+  border-radius: 4px;
+  line-height: 1rem;
+  padding: 0px 4px;
+}
+
+.add-transaction-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-main {
+  width: 100%;
+}
+
 .desktop-view {
   display: block;
-  width: 768px;
+  width: 100%;
   padding: 24px;
 }
 
@@ -9,19 +65,19 @@
 }
 
 .empty-state {
-  width: 100%;
+  width: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 60px 20px;
   text-align: center;
-  min-height: 500px; 
+  min-height: 400px;
 }
 
 .transaction-table {
   width: 100%;
-  max-width: 768px;
+  /* max-width: 768px; */
   border-collapse: collapse;
   text-align: right;
 }
@@ -60,12 +116,24 @@
 }
 
 @media (max-width: 768px) {
+  .transaction-container {
+    width: 100%;
+    max-width: 332px;
+    margin: 16px;
+    padding: 16px;
+    min-height: 100vh;
+  }
+
   .desktop-view {
     display: none;
   }
 
   .mobile-view {
     display: block;
+  }
+
+  .empty-state{
+    width: 100%;
   }
 
   /* mobile style */

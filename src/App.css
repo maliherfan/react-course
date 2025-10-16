@@ -32,31 +32,8 @@ body {
 }
 
 .App {
-  max-width: 768px;
-  height: 803px;
+  width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  text-align: center;
-  margin: 111px;
-  padding: 36px 24px;
-  border-radius: 16px;
-  background-color: #fff;
-}
-
-h1 {
-  width: 79px;
-  height: 31px;  
-  font-size: 20px;
-  line-height: 100%;
-}
-
-@media (max-width: 768px) {
-  .App {
-    width: 380px;
-    height: auto;
-    margin: 16px;
-  }
 }

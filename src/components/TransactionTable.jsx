@@ -2,19 +2,6 @@ import React from 'react';
 import "../styles/Transaction.css"
 
 const TransactionTable = ({ transactions = [], onDeleteTransaction }) => {
-  const safeTransactions = Array.isArray(transactions) ? transactions : [];
-
-  if (safeTransactions.length === 0) {
-    return (
-      <div className="empty-state">📝 شما هنوز تراکنشی وارد نکرده اید.</div>
-    );
-  }
-
-  const handleDelete = (id, description) => {
-    if (window.confirm(`آیا از حذف تراکنش "${description}" مطمئن هستید؟`)) {
-      onDeleteTransaction(id);
-    }
-  };
   return (
     <table className="transaction-table">
       <thead>
@@ -27,7 +14,7 @@ const TransactionTable = ({ transactions = [], onDeleteTransaction }) => {
         </tr>
       </thead>
       <tbody>
-        {safeTransactions.map(transaction => (
+        {transactions.map(transaction => (
           <tr key={transaction.id}>
             <td>{transaction.date || 'تاریخ نامعلوم'}</td>
             <td className="income">
@@ -40,9 +27,7 @@ const TransactionTable = ({ transactions = [], onDeleteTransaction }) => {
             <td className="actions-cell">
               <button
                 className="delete-btn"
-                onClick={() =>
-                  handleDelete(transaction.id, transaction.description)
-                }
+                onClick={() => onDeleteTransaction(transaction.id)}
                 title="حذف تراکنش"
               >
                 <i className="fa fa-trash"></i>
