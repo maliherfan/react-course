@@ -1,7 +1,7 @@
 import React from 'react';
 import "../styles/Transaction.css"
 
-const TransactionCard = ({ transaction, onDelete }) => {
+const TransactionCard = ({ transaction, onDelete, formatAmount}) => {
   return (
     <div className="transaction-card">
       <div className="card-body">
@@ -10,9 +10,9 @@ const TransactionCard = ({ transaction, onDelete }) => {
         </span>
         <div className="transaction-amount">
           {transaction.income ? (
-            <span className="income">{transaction.income}+ تومان</span>
+            <span className="income">{formatAmount(transaction.income)}+ تومان</span>
           ) : (
-            <span className="outcome">{transaction.outcome}- تومان</span>
+            <span className="outcome">{formatAmount(transaction.outcome)}- تومان</span>
           )}
         </div>
       </div>
@@ -24,7 +24,7 @@ const TransactionCard = ({ transaction, onDelete }) => {
           onClick={() => onDelete(transaction.id)}
           title="حذف تراکنش"
         >
-          <i className="fa fa-trash"></i>
+          <img src="public/icons/trash.svg" width="24" height="24" />
         </button>
       </div>
     </div>

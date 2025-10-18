@@ -1,7 +1,11 @@
 import React from 'react';
-import "../styles/Transaction.css"
+import '../styles/Transaction.css';
 
-const TransactionTable = ({ transactions = [], onDeleteTransaction }) => {
+const TransactionTable = ({
+  transactions = [],
+  onDeleteTransaction,
+  formatAmount,
+}) => {
   return (
     <table className="transaction-table">
       <thead>
@@ -18,10 +22,12 @@ const TransactionTable = ({ transactions = [], onDeleteTransaction }) => {
           <tr key={transaction.id}>
             <td>{transaction.date || 'تاریخ نامعلوم'}</td>
             <td className="income">
-              {transaction.income ? `+${transaction.income}` : ''}
+              {transaction.income ? `+${formatAmount(transaction.income)}` : ''}
             </td>
             <td className="outcome">
-              {transaction.outcome ? `-${transaction.outcome}` : ''}
+              {transaction.outcome
+                ? `-${formatAmount(transaction.outcome)}`
+                : ''}
             </td>
             <td>{transaction.description || 'بدون شرح'}</td>
             <td className="actions-cell">
@@ -30,7 +36,7 @@ const TransactionTable = ({ transactions = [], onDeleteTransaction }) => {
                 onClick={() => onDeleteTransaction(transaction.id)}
                 title="حذف تراکنش"
               >
-                <i className="fa fa-trash"></i>
+                <img src="public/icons/trash.svg" width="24" height="24" />
               </button>
             </td>
           </tr>
