@@ -1,0 +1,101 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "react-app",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "prettier"
+  ],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "babel",
+    "import",
+    "simple-import-sort",
+    "filenames",
+    "css-modules",
+    "flowtype",
+    "no-async-without-await",
+    "react-redux",
+    "redux-saga"
+  ],
+  "rules": {
+    // React Rules
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/jsx-uses-react": "off",
+
+    // React Hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+
+    // Import/Export Rules
+    "import/no-unresolved": "error",
+    "import/named": "error",
+    "import/default": "error",
+    "import/namespace": "error",
+    "import/no-absolute-path": "error",
+    "import/no-dynamic-require": "warn",
+
+    // Simple Import Sort
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+
+    // Filenames
+    "filenames/match-regex": ["error", "^[a-z0-9-]+$"],
+    "filenames/match-exported": "off",
+
+    // CSS Modules
+    "css-modules/no-unused-class": "warn",
+    "css-modules/no-undef-class": "error",
+
+    // Flowtype
+    "flowtype/define-flow-type": "warn",
+    "flowtype/use-flow-type": "warn",
+
+    // Async/Await
+    "no-async-without-await/no-async-without-await": "error",
+
+    // React-Redux
+    "react-redux/connect-prefer-named-arguments": "warn",
+
+    // Redux-Saga
+    "redux-saga/no-yield-in-race": "error",
+    "redux-saga/yield-effects": "error",
+
+    // General JavaScript
+    "no-unused-vars": "warn",
+    "no-console": "warn",
+    "prefer-const": "error",
+    "no-var": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}

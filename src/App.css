@@ -1,0 +1,39 @@
+@font-face {
+  font-family: vazirmatn;
+  src: url(../public/fonts/Vazirmatn-FD-SemiBold.woff2);
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: vazirmatn;
+  src: url(../public/fonts/Vazirmatn-FD-Medium.woff2);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: vazirmatn;
+  src: url(../public/fonts/Vazirmatn-FD-Regular.woff2);
+  font-weight: 400;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+  background-color: #dcdfe3;
+  font-family: 'vazirmatn', 'Tahoma', 'Arial', 'sans-serif';
+  font-weight: 400;
+}
+
+.App {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
