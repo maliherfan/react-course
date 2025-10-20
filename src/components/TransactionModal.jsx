@@ -6,6 +6,7 @@ const TransactionModal = ({ onClose, onAddTransaction }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
+        <div className="line"></div>
         <div className="modal-header">
           <h2>افزودن تراکنش</h2>
           <button className="close-btn" onClick={onClose}>

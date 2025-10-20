@@ -18,13 +18,21 @@
   max-height: 388px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 14px;
   position: absolute;
   top: 102.5px;
   background: #ffffff;
   border-radius: 0px 0px 12px 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   overflow-y: auto;
+}
+
+.line{
+  display: none;
+  width: 24px;
+  height: 4px;
+  background-color: #D1D4DD;
+  margin: 15px auto 0px;
 }
 
 .modal-header {
@@ -90,12 +98,18 @@
     border-radius: 16px 16px 0 0;
   }
 
+  .line{
+    display: block;
+  }
+
   .modal-header {
     height: 22px;
+    border-bottom: none;
   }
 
   .modal-header h2 {
     width: 90%;
+    padding-right: 40px;
     font-size: 14px;
   }
 }

@@ -53,7 +53,8 @@ const AddTransactionForm = ({ onAddTransaction, onClose }) => {
               onChange={handleChange}
               required
             />
-            <img className="calendar-icon"
+            <img
+              className="calendar-icon"
               src="public/icons/calender.svg"
               alt="انتخاب تاریخ"
               width="24"

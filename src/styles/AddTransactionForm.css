@@ -38,7 +38,7 @@
   border: 1px solid #d0d7de;
   border-radius: 6px;
   font-size: 14px;
-  font-family: 'vazirmatn', 'Tahoma', 'Arial', 'sans-serif'; 
+  font-family: 'vazirmatn', 'Tahoma', 'Arial', 'sans-serif';
 }
 
 .form-group input:focus {
@@ -50,20 +50,16 @@
   position: relative;
   width: 312px;
 }
-.date-input-wrapper input {
+
+.date-input-wrapper input{
   width: 100%;
 }
 
 .calendar-icon {
   position: absolute;
-  left: 12px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   pointer-events: none;
   color: #2bb0ed;
   z-index: 2;
@@ -127,7 +123,7 @@
   .form-group input,
   .type-selector,
   .date-input-wrapper {
-    width: 240px;    
+    width: 240px;
   }
 
   .form-group > label {
@@ -137,19 +133,27 @@
   .type-selector input {
     width: 20px;
   }
-
-  .date-input-wrapper input {
-    width: 100%;
-  }
 }
 
 @media (max-width: 480px) {
   .transaction-form {
     gap: 8px;
   }
+
+  .form-group input,
+  .type-selector,
+  .date-input-wrapper {
+    width: 220px;
+  }
+
+  .type-selector input {
+    width: 20px;
+  }
+
   .form-group {
     margin-bottom: 20px;
   }
+  
   .form-group label {
     font-size: 14px;
   }
@@ -161,5 +165,17 @@
   .btn-cancel,
   .btn-submit {
     flex: 1;
+  }
+}
+
+@media (max-width: 350px) {
+  .form-group input,
+  .type-selector,
+  .date-input-wrapper {
+    width: 180px;
+  }
+
+  .type-selector input {
+    width: 18px;
   }
 }

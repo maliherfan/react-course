@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TransactionTable from './TransactionTable';
 import TransactionCard from './TransactionCard';
 import TransactionModal from './TransactionModal';
@@ -7,8 +7,32 @@ import { mockTransactions } from '../constants/mockData';
 import '../styles/Transaction.css';
 
 const Transaction = () => {
-  const [transactions, setTransactions] = useState(mockTransactions);
+  //  read data from localStorage
+  const getInitialTransactions = () => {
+    try {
+      const savedData = localStorage.getItem('expenseTrackerData');
+      if (savedData) {
+        return JSON.parse(savedData);
+      }
+      // if localStorage is empty, then use mockDate
+      return mockTransactions;
+    } catch (error) {
+      console.error('Error loading data from localStorage:', error);
+      return mockTransactions;
+    }
+  };
+
+  const [transactions, setTransactions] = useState(getInitialTransactions);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // store in localStorage whenever transaction change
+  useEffect(() => {
+    try {
+      localStorage.setItem('expenseTrackerData', JSON.stringify(transactions));
+    } catch (error) {
+      console.error('Error saving data to localStorage:', error);
+    }
+  }, [transactions]);
 
   const formatAmount = amount => {
     if (!amount) return '';

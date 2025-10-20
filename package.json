@@ -15,8 +15,16 @@
     "code:fix": "npm run lint:fix && npm run format"
   },
   "dependencies": {
+    "dayjs": "^1.11.18",
+    "jalaliday": "^3.1.1",
+    "moment-jalaali": "^0.10.4",
+    "persian-date": "^1.1.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-date-object": "^2.1.9",
+    "react-datepicker2": "^3.3.13",
+    "react-dom": "^19.1.1",
+    "react-multi-date-picker": "^4.5.2",
+    "react-persian-datepicker": "^3.0.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.4",
