@@ -3,8 +3,10 @@ import '../styles/Dashboard.css';
 
 const Dashboard = () => {
   return (
-    <div className="dashboard-content">
-      داشبورد
+    <div className="dashboard-container">
+      <p className="dashboard-content">
+        داشبورد
+      </p>
     </div>
   );
 };

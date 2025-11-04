@@ -8,7 +8,7 @@ const ProductHeader = () => {
   return (
     <header className="product-header">
       <div className="logo-section">
-        <img src="/logo.svg" alt="لوگو جیب تو" className="logo-icon" />
+        <img src="/public/icons/logo.svg" alt="لوگو جیب تو" className="logo-icon" />
         <h1 className="logo-text">جیب تو</h1>
       </div>
 

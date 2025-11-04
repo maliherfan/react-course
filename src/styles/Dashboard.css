@@ -1,0 +1,29 @@
+.dashboard-container {
+  width: 55vw;
+  height: 120px;
+  margin: 24 auto;
+  padding: 36px 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-content {
+  width: 768px;
+  height: 48px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #242d35;
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    width: 90vw;
+    margin-top: 16px;
+  }
+  .dashboard-content {
+    width: 332px;
+  }
+}
