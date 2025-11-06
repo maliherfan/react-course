@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../styles/ProductHeader.css';
+import './ProductHeader.css';
 
 const ProductHeader = () => {
   const location = useLocation();
@@ -9,7 +9,6 @@ const ProductHeader = () => {
     <header className="product-header">
       <div className="logo-section">
         <img src="/public/icons/logo.svg" alt="لوگو جیب تو" className="logo-icon" />
-        <h1 className="logo-text">جیب تو</h1>
       </div>
 
       <nav className="navigation">

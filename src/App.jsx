@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
-import Transaction from './components/Transaction'; 
-import NotFound from './pages/NotFound';
+import Layout from './layout/Layout';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Transaction from './pages/Transactions/Transaction'; 
+import NotFound from './pages/NotFound/NotFound';
 import './App.css';
 
 function App() {

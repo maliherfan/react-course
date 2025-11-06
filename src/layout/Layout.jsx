@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import ProductHeader from './ProductHeader';
-import '../styles/Layout.css';
+import ProductHeader from '../components/ProductHeader/ProductHeader';
+import './Layout.css';
 
 const Layout = () => {
   return (
