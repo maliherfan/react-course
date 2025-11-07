@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 
 const initialState = {
   transactions: [],
@@ -31,4 +31,14 @@ const transactionReducer = (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+const TransactionContext = createContext();
+
+export const useTransaction = () => {
+  const context = useContext(TransactionContext);
+  if (!context) {
+    throw new Error('useTransaction must be used within a TransactionProvider');
+  }
+  return context;
 };
