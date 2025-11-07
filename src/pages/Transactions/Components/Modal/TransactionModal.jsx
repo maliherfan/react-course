@@ -1,6 +1,6 @@
 import React from 'react';
-import AddTransactionForm from './AddTransactionForm';
-import '../styles/TransactionModal.css';
+import AddTransactionForm from './Form/AddTransactionForm';
+import './TransactionModal.css';
 
 const TransactionModal = ({ onClose, onAddTransaction }) => {
   return (

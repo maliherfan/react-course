@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import TransactionTable from './TransactionTable';
-import TransactionCard from './TransactionCard';
-import TransactionModal from './TransactionModal';
-import TransactionHeader from './TransactionHeader';
-import { mockTransactions } from '../constants/mockData';
-import '../styles/Transaction.css';
+import TransactionTable from './Components/TransactionTable/TransactionTable';
+import TransactionCard from './Components/TransactionCard/TransactionCard';
+import TransactionModal from './Components/Modal/TransactionModal';
+import TransactionHeader from './Components/TransactionHeader/TransactionHeader';
+import { mockTransactions } from '../../constants/mockData';
+import './Transaction.css';
 
 const Transaction = () => {
   //  read data from localStorage

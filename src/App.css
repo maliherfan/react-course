@@ -29,11 +29,9 @@ body {
   background-color: #dcdfe3;
   font-family: 'vazirmatn', 'Tahoma', 'Arial', 'sans-serif';
   font-weight: 400;
+  width: 100%; 
 }
 
 .App {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
