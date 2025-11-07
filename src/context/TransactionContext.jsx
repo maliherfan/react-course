@@ -1,10 +1,7 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { mockTransactions } from '../constants/mockData';
 
-const initialState = {
-  transactions: [],
-};
-
-const transactionReducer = (state = initialState, action) => {
+const transactionReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TRANSACTION':
       return {
@@ -18,7 +15,7 @@ const transactionReducer = (state = initialState, action) => {
         ),
       };
 
-    case 'TRANSACTION_EDIT':
+    case 'EDIT_TRANSACTION':
       const { id, updatedData } = action.payload;
       return {
         transactions: state.transactions.map(transaction =>
@@ -42,3 +39,44 @@ export const useTransaction = () => {
   }
   return context;
 };
+
+export const TransactionProvider = ({ children }) => {
+  // get data from localstorage or use mockdata on loading state
+  const getInitialState = () => {
+    try {
+      const savedData = localStorage.getItem('expenseTrackerData');
+      const transactions = savedData ? JSON.parse(savedData) : mockTransactions;
+      return { transactions };
+    } catch (error) {
+      console.error('Error loading initial data:', error);
+      return { transactions: mockTransactions };
+    }
+  };
+
+  const [state, dispatch] = useReducer(transactionReducer, getInitialState()); // ✅ initialState مستقیماً استفاده می‌شود
+
+  // update localStorage whenever transaction list change
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        'expenseTrackerData',
+        JSON.stringify(state.transactions)
+      );
+    } catch (error) {
+      console.error('Error saving transactions:', error);
+    }
+  }, [state.transactions]);
+
+  const value = {
+    transactions: state.transactions,
+    dispatch,
+  };
+
+  return (
+    <TransactionContext.Provider value={value}>
+      {children}
+    </TransactionContext.Provider>
+  );
+};
+
+export default TransactionContext;
