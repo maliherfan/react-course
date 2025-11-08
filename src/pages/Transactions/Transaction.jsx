@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useTransaction } from '../contexts/TransactionContext';
-import TransactionTable from './TransactionTable';
-import TransactionCard from './TransactionCard';
-import TransactionModal from './TransactionModal';
-import TransactionHeader from './TransactionHeader';
-import '../styles/Transaction.css';
+import { useTransaction } from '../../context/TransactionContext';
+import TransactionTable from './Components/TransactionTable/TransactionTable';
+import TransactionCard from './Components/TransactionCard/TransactionCard';
+import TransactionModal from './Components/Modal/TransactionModal';
+import TransactionHeader from './Components/TransactionHeader/TransactionHeader';
+import './Transaction.css';
 
 const Transaction = () => {
   const { transactions } = useTransaction();
