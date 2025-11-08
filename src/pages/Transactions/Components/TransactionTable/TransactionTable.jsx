@@ -1,11 +1,10 @@
 import React from 'react';
+import { useTransaction } from '../../../../context/TransactionContext';
 import '../../Transaction.css';
 
-const TransactionTable = ({
-  transactions = [],
-  onDeleteTransaction,
-  formatAmount,
-}) => {
+const TransactionTable = ({ formatAmount }) => {
+  const { transactions, dispatch } = useTransaction();
+
   return (
     <table className="transaction-table">
       <thead>
@@ -33,7 +32,10 @@ const TransactionTable = ({
             <td className="actions-cell">
               <button
                 className="delete-btn"
-                onClick={() => onDeleteTransaction(transaction.id)}
+                onClick={() => dispatch({ 
+                  type: 'TRANSACTION_DELETE', 
+                  payload: transaction.id 
+                })}
                 title="حذف تراکنش"
               >
                 <img src="public/icons/trash.svg" width="24" height="24" />

@@ -1,10 +1,10 @@
 import React from 'react';
-import { useTransaction } from '../../../context/TransactionContext';
+import { useTransaction } from '../../../../context/TransactionContext';
 import "../../Transaction.css"
 
 const TransactionCard = ({ transactionId, formatAmount }) => {
   const { transactions, dispatch } = useTransaction();
-  
+
   const transaction = transactions.find(t => t.id === transactionId);
 
   if (!transaction) {
