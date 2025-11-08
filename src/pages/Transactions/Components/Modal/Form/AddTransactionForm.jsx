@@ -28,7 +28,7 @@ const AddTransactionForm = ({ onClose }) => {
     };
 
     dispatch({
-      type: 'TRANSACTION_ADD',
+      type: 'ADD_TRANSACTION',
       payload: newTransaction
     });
 

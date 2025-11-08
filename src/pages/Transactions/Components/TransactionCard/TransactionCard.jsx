@@ -31,7 +31,7 @@ const TransactionCard = ({ transactionId, formatAmount }) => {
         <button
           className="delete-btn"
           onClick={() => dispatch({ 
-            type: 'TRANSACTION_DELETE', 
+            type: 'DELETE_TRANSACTION', 
             payload: transactionId 
           })}
           title="حذف تراکنش"

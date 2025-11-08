@@ -33,7 +33,7 @@ const TransactionTable = ({ formatAmount }) => {
               <button
                 className="delete-btn"
                 onClick={() => dispatch({ 
-                  type: 'TRANSACTION_DELETE', 
+                  type: 'DELETE_TRANSACTION', 
                   payload: transaction.id 
                 })}
                 title="حذف تراکنش"
