@@ -1,38 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useTransaction } from '../../context/TransactionContext';
 import TransactionTable from './Components/TransactionTable/TransactionTable';
 import TransactionCard from './Components/TransactionCard/TransactionCard';
 import TransactionModal from './Components/Modal/TransactionModal';
 import TransactionHeader from './Components/TransactionHeader/TransactionHeader';
-import { mockTransactions } from '../../constants/mockData';
 import './Transaction.css';
 
 const Transaction = () => {
-  //  read data from localStorage
-  const getInitialTransactions = () => {
-    try {
-      const savedData = localStorage.getItem('expenseTrackerData');
-      if (savedData) {
-        return JSON.parse(savedData);
-      }
-      // if localStorage is empty, then use mockDate
-      return mockTransactions;
-    } catch (error) {
-      console.error('Error loading data from localStorage:', error);
-      return mockTransactions;
-    }
-  };
-
-  const [transactions, setTransactions] = useState(getInitialTransactions);
+  const { transactions } = useTransaction();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // store in localStorage whenever transaction change
-  useEffect(() => {
-    try {
-      localStorage.setItem('expenseTrackerData', JSON.stringify(transactions));
-    } catch (error) {
-      console.error('Error saving data to localStorage:', error);
-    }
-  }, [transactions]);
 
   const formatAmount = amount => {
     if (!amount) return '';
@@ -40,17 +16,7 @@ const Transaction = () => {
     return numericString.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
-  const handleAddTransaction = newTransaction => {
-    setTransactions(prev => [newTransaction, ...prev]);
-    setIsModalOpen(false);
-  };
-
-  const handleDeleteTransaction = id => {
-    setTransactions(prev => prev.filter(transaction => transaction.id !== id));
-  };
-
-  const safeTransactions = Array.isArray(transactions) ? transactions : [];
-  const hasTransactions = safeTransactions.length > 0;
+  const hasTransactions = transactions.length > 0;
 
   return (
     <div className="transaction-container">
@@ -65,18 +31,13 @@ const Transaction = () => {
         ) : (
           <>
             <div className="desktop-view">
-              <TransactionTable
-                transactions={safeTransactions}
-                onDeleteTransaction={handleDeleteTransaction}
-                formatAmount={formatAmount}
-              />
+              <TransactionTable formatAmount={formatAmount} />
             </div>
             <div className="mobile-view">
-              {safeTransactions.map(transaction => (
+              {transactions.map(transaction => (
                 <TransactionCard
                   key={transaction.id}
-                  transaction={transaction}
-                  onDelete={handleDeleteTransaction}
+                  transactionId={transaction.id} 
                   formatAmount={formatAmount}
                 />
               ))}
@@ -86,10 +47,7 @@ const Transaction = () => {
       </main>
 
       {isModalOpen && (
-        <TransactionModal
-          onClose={() => setIsModalOpen(false)}
-          onAddTransaction={handleAddTransaction}
-        />
+        <TransactionModal onClose={() => setIsModalOpen(false)} />
       )}
     </div>
   );

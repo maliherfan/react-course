@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useTransaction } from '../../../../../context/TransactionContext';
 import './AddTransactionForm.css';
 
-const AddTransactionForm = ({ onAddTransaction, onClose }) => {
+const AddTransactionForm = ({ onClose }) => {
+  const { dispatch } = useTransaction();
   const [formData, setFormData] = useState({
     date: '',
     amount: '',
@@ -9,7 +11,6 @@ const AddTransactionForm = ({ onAddTransaction, onClose }) => {
     description: '',
   });
 
-  // onSubmit event handling
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -26,11 +27,14 @@ const AddTransactionForm = ({ onAddTransaction, onClose }) => {
       description: formData.description,
     };
 
-    onAddTransaction(newTransaction);
+    dispatch({
+      type: 'ADD_TRANSACTION',
+      payload: newTransaction
+    });
+
     onClose();
   };
 
-  // onChange event handling
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData(prev => ({

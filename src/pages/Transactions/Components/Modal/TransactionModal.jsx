@@ -2,7 +2,7 @@ import React from 'react';
 import AddTransactionForm from './Form/AddTransactionForm';
 import './TransactionModal.css';
 
-const TransactionModal = ({ onClose, onAddTransaction }) => {
+const TransactionModal = ({ onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -13,10 +13,7 @@ const TransactionModal = ({ onClose, onAddTransaction }) => {
             ×
           </button>
         </div>
-        <AddTransactionForm
-          onAddTransaction={onAddTransaction}
-          onClose={onClose}
-        />
+        <AddTransactionForm onClose={onClose} />
       </div>
     </div>
   );
