@@ -141,10 +141,16 @@
   font-weight: 500;
 }
 
+.charts-section {
+  display: grid;
+  /* grid-template-columns: 2fr 1fr; */
+  gap: 24px;
+  margin-top: 32px;
+}
+
 /* responsive */
 @media (max-width: 768px) {
   .dashboard-container {
-    width: 100%;
     padding: 16px;
   }
 
@@ -155,5 +161,19 @@
 
   .summary-card {
     padding: 20px;
+  }
+
+  .monthly-data-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .month-data-card {
+    padding: 12px;
+  }
+
+  .charts-section {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }

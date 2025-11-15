@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import { useTransaction } from '../../context/TransactionContext';
+//import MonthlyBarChart from './Components/MonthlyBarChart/MonthlyBarChart';
+import ExpensePieChart from './Components/ExpensePieChart/ExpensePieChart';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -144,11 +146,14 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* نمودارها */}
-      {/* <div className="charts-section">
-        <MonthlyBarChart data={monthlyData} />
-        <ExpensePieChart totalIncome={totalIncome} totalExpense={totalExpense} />
-      </div> */}
+      {/* charts */}
+      <div className="charts-section">
+        {/* <MonthlyBarChart data={monthlyData} /> */}
+        <ExpensePieChart
+          totalIncome={totalIncome}
+          totalExpense={totalExpense}
+        />
+      </div>
     </div>
   );
 };
