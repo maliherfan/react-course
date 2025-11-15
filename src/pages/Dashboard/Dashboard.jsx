@@ -31,6 +31,54 @@ const Dashboard = () => {
     return { totalIncome, totalExpense, balance };
   }, [transactions]);
 
+  const monthlyData = useMemo(() => {
+    const monthlySums = {};
+
+    transactions.forEach(transaction => {
+      if (!transaction.date) return;
+
+      const date = new Date(transaction.date);
+      const monthKey = `${date.getFullYear()}-${date.getMonth() + 1}`;
+      // const monthName = `${transaction.date.split('/')[0]}/${transaction.date.split('/')[1]}`;
+      const monthName = transaction.date.split('/')[1] * 1;
+      const monthNames = [
+        'فروردین',
+        'اردیبهشت',
+        'خرداد',
+        'تیر',
+        'مرداد',
+        'شهریور',
+        'مهر',
+        'آبان',
+        'آذر',
+        'دی',
+        'بهمن',
+        'اسفند',
+      ];
+      if (!monthlySums[monthKey]) {
+        monthlySums[monthKey] = {
+          // name: monthName,
+          name: monthNames[monthName - 1],
+          income: 0,
+          expense: 0,
+          balance: 0,
+        };
+      }
+
+      if (transaction.income) {
+        monthlySums[monthKey].income += parseAmount(transaction.income);
+      }
+      if (transaction.outcome) {
+        monthlySums[monthKey].expense += parseAmount(transaction.outcome);
+      }
+
+      monthlySums[monthKey].balance =
+        monthlySums[monthKey].income - monthlySums[monthKey].expense;
+    });
+
+    return Object.values(monthlySums);
+  }, [transactions]);
+
   const formatCurrency = amount => {
     return amount.toLocaleString('fa-IR') + ' ريال';
   };
@@ -66,6 +114,41 @@ const Dashboard = () => {
           <span className="balance-status">{balance >= 0 ? 'سود' : 'ضرر'}</span>
         </div>
       </div>
+
+      <div className="monthly-data-section">
+        <h3>📊 داده‌های ماهانه </h3>
+        <div className="monthly-data-grid">
+          {monthlyData.map((month, index) => (
+            <div key={index} className="month-data-card">
+              <h4>{month.name}</h4>
+              <div className="month-amounts">
+                <div className="amount-row">
+                  <span>درآمد:</span>
+                  <span className="income">{formatCurrency(month.income)}</span>
+                </div>
+                <div className="amount-row">
+                  <span>هزینه:</span>
+                  <span className="expense">
+                    {formatCurrency(month.expense)}
+                  </span>
+                </div>
+                <div className="amount-row">
+                  <span>تراز:</span>
+                  <span className={month.balance >= 0 ? 'income' : 'expense'}>
+                    {formatCurrency(Math.abs(month.balance))}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* نمودارها */}
+      {/* <div className="charts-section">
+        <MonthlyBarChart data={monthlyData} />
+        <ExpensePieChart totalIncome={totalIncome} totalExpense={totalExpense} />
+      </div> */}
     </div>
   );
 };
