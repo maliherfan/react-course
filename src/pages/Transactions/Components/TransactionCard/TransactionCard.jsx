@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTransaction } from '../../../../context/TransactionContext';
-import "../../Transaction.css"
+import '../../Transaction.css';
 
 const TransactionCard = ({ transactionId, formatAmount }) => {
   const { transactions, dispatch } = useTransaction();
@@ -19,16 +19,20 @@ const TransactionCard = ({ transactionId, formatAmount }) => {
         </span>
         <div className="transaction-amount">
           {transaction.income ? (
-            <span className="income">{formatAmount(transaction.income)}+ تومان</span>
+            <span className="income">
+              {formatAmount(transaction.income)}+ تومان
+            </span>
           ) : (
-            <span className="outcome">{formatAmount(transaction.outcome)}- تومان</span>
+            <span className="outcome">
+              {formatAmount(transaction.outcome)}- تومان
+            </span>
           )}
         </div>
       </div>
 
       <div className="card-description-action">
         <span>{transaction.description || 'بدون شرح'}</span>
-        <button
+        {/* <button
           className="delete-btn"
           onClick={() => dispatch({ 
             type: 'DELETE_TRANSACTION', 
@@ -37,7 +41,27 @@ const TransactionCard = ({ transactionId, formatAmount }) => {
           title="حذف تراکنش"
         >
           <img src="public/icons/trash.svg" width="24" height="24" />
-        </button>
+        </button> */}
+        <div className="dropdown">
+          <button className="dropdown-toggle">
+            <img src="public/icons/dot.svg" width="24" height="24" />
+          </button>
+          <div className="dropdown-menu">
+            <button className="dropdown-item edit-btn">
+              <img src="public/icons/edit.svg" width="16" height="16" />
+              ویرایش
+            </button>
+            <button
+              className="dropdown-item delete-btn"
+              onClick={() =>
+                dispatch({ type: 'DELETE_TRANSACTION', payload: transactionId })
+              }
+            >
+              <img src="public/icons/trash.svg" width="16" height="16" />
+              حذف
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
