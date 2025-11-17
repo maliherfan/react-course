@@ -1,15 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTransaction } from '../../../../../context/TransactionContext';
 import './AddTransactionForm.css';
 
 const AddTransactionForm = ({ onClose }) => {
-  const { dispatch } = useTransaction();
+  const { modalState, dispatch } = useTransaction();
+  const { type: modalType, transaction } = modalState;
   const [formData, setFormData] = useState({
     date: '',
     amount: '',
     type: 'outcome',
     description: '',
   });
+
+  //empty or full form
+  useEffect(() => {
+    if (modalType === 'edit' && transaction) {
+      // edit - full form
+
+      const amount = transaction.income !== '' ? transaction.income : transaction.outcome;
+      setFormData({
+        date: transaction.date || '',
+        amount: amount || '',
+        type: transaction.income ? 'income' : 'outcome',
+        description: transaction.description || '',
+      });
+    } else {
+      // add - empty form
+      setFormData({
+        date: '',
+        amount: '',
+        type: 'outcome',
+        description: '',
+      });
+    }
+  }, [modalType, transaction]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -19,18 +43,34 @@ const AddTransactionForm = ({ onClose }) => {
       return;
     }
 
-    const newTransaction = {
-      id: Date.now(),
-      date: formData.date,
-      income: formData.type === 'income' ? formData.amount : '',
-      outcome: formData.type === 'outcome' ? formData.amount : '',
-      description: formData.description,
-    };
+    if (modalType === 'edit' && transaction) {
+      dispatch({
+        type: 'EDIT_TRANSACTION',
+        payload: {
+          id: transaction.id,
+          updatedData: {
+            id: transaction.id,
+            date: formData.date,
+            income: formData.type === 'income' ? formData.amount : '',
+            outcome: formData.type === 'outcome' ? formData.amount : '',
+            description: formData.description,
+          },
+        },
+      });
+    } else {
+      const newTransaction = {
+        id: Date.now(),
+        date: formData.date,
+        income: formData.type === 'income' ? formData.amount : '',
+        outcome: formData.type === 'outcome' ? formData.amount : '',
+        description: formData.description,
+      };
 
-    dispatch({
-      type: 'ADD_TRANSACTION',
-      payload: newTransaction
-    });
+      dispatch({
+        type: 'ADD_TRANSACTION',
+        payload: newTransaction,
+      });
+    }
 
     onClose();
   };
@@ -124,7 +164,7 @@ const AddTransactionForm = ({ onClose }) => {
           انصراف
         </button>
         <button type="submit" className="btn-submit">
-          ثبت
+          {modalType === 'edit' ? 'ثبت تغییرات' : 'ثبت'}
         </button>
       </div>
     </form>

@@ -7,8 +7,7 @@ import TransactionHeader from './Components/TransactionHeader/TransactionHeader'
 import './Transaction.css';
 
 const Transaction = () => {
-  const { transactions } = useTransaction();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { transactions, modalState, setModalState } = useTransaction();
 
   const formatAmount = amount => {
     if (!amount) return '';
@@ -16,11 +15,27 @@ const Transaction = () => {
     return numericString.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
+  const handleAddTransaction = () => {
+    setModalState({
+      isOpen: true,
+      type: 'add',
+      transaction: null,
+    });
+  };
+
+  const handleCloseModal = () => {
+    setModalState({
+      isOpen: false,
+      type: null,
+      transaction: null,
+    });
+  };
+
   const hasTransactions = transactions.length > 0;
 
   return (
     <div className="transaction-container">
-      <TransactionHeader onAddTransaction={() => setIsModalOpen(true)} />
+      <TransactionHeader onAddTransaction={handleAddTransaction} />
 
       <main className="app-main">
         {!hasTransactions ? (
@@ -37,7 +52,7 @@ const Transaction = () => {
               {transactions.map(transaction => (
                 <TransactionCard
                   key={transaction.id}
-                  transactionId={transaction.id} 
+                  transactionId={transaction.id}
                   formatAmount={formatAmount}
                 />
               ))}
@@ -46,9 +61,7 @@ const Transaction = () => {
         )}
       </main>
 
-      {isModalOpen && (
-        <TransactionModal onClose={() => setIsModalOpen(false)} />
-      )}
+      {modalState.isOpen && <TransactionModal onClose={handleCloseModal} />}
     </div>
   );
 };

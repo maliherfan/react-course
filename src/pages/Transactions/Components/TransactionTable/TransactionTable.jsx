@@ -3,7 +3,23 @@ import { useTransaction } from '../../../../context/TransactionContext';
 import '../../Transaction.css';
 
 const TransactionTable = ({ formatAmount }) => {
-  const { transactions, dispatch } = useTransaction();
+  const { transactions, setModalState } = useTransaction();
+
+  const handleEdit = transaction => {
+    setModalState({
+      isOpen: true,
+      type: 'edit',
+      transaction: transaction,
+    });
+  };
+
+  const handleDelete = transaction => {
+    setModalState({
+      isOpen: true,
+      type: 'delete',
+      transaction: transaction,
+    });
+  };
 
   return (
     <table className="transaction-table">
@@ -30,37 +46,21 @@ const TransactionTable = ({ formatAmount }) => {
             </td>
             <td>{transaction.description || 'بدون شرح'}</td>
             <td className="actions-cell">
-              {/* <button
-                className="delete-btn"
-                onClick={() => dispatch({ 
-                  type: 'DELETE_TRANSACTION', 
-                  payload: transaction.id 
-                })}
-                title="حذف تراکنش"
-              >
-                <img src="public/icons/trash.svg" width="24" height="24" />
-              </button> */}
               <div className="dropdown">
                 <button className="dropdown-toggle">
-                  <img
-                    src="public/icons/dot.svg"
-                    width="24"
-                    height="24"
-                  />
+                  <img src="public/icons/dot.svg" width="24" height="24" />
                 </button>
                 <div className="dropdown-menu">
-                  <button className="dropdown-item edit-btn">
+                  <button
+                    className="dropdown-item edit-btn"
+                    onClick={() => handleEdit(transaction)}
+                  >
                     <img src="public/icons/edit.svg" width="16" height="16" />
                     ویرایش
                   </button>
                   <button
                     className="dropdown-item delete-btn"
-                    onClick={() =>
-                      dispatch({
-                        type: 'DELETE_TRANSACTION',
-                        payload: transaction.id,
-                      })
-                    }
+                    onClick={() => handleDelete(transaction)}
                   >
                     <img src="public/icons/trash.svg" width="16" height="16" />
                     حذف

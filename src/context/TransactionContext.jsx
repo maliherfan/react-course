@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useState } from 'react';
 import { mockTransactions } from '../constants/mockData';
 
 const transactionReducer = (state, action) => {
@@ -53,7 +53,12 @@ export const TransactionProvider = ({ children }) => {
     }
   };
 
-  const [state, dispatch] = useReducer(transactionReducer, getInitialState()); // ✅ initialState مستقیماً استفاده می‌شود
+  const [state, dispatch] = useReducer(transactionReducer, getInitialState());
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    type: null, // 'add', 'edit', 'delete'
+    transaction: null
+  });
 
   // update localStorage whenever transaction list change
   useEffect(() => {
@@ -67,9 +72,11 @@ export const TransactionProvider = ({ children }) => {
     }
   }, [state.transactions]);
 
-  const value = {
+   const value = {
     transactions: state.transactions,
+    modalState,
     dispatch,
+    setModalState
   };
 
   return (
