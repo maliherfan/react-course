@@ -74,6 +74,10 @@
   color: #333;
 }
 
+.close-btn:focus{
+  outline: none;
+}
+
 @media (max-width: 768px) {
   .modal-content {
     width: 80%;
