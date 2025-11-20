@@ -2,7 +2,7 @@ import React from 'react';
 import { useTransaction } from '../../../../context/TransactionContext';
 import '../../Transaction.css';
 
-const TransactionTable = ({ formatAmount }) => {
+const TransactionTable = () => {
   const { transactions, dispatch } = useTransaction();
 
   return (
@@ -21,11 +21,11 @@ const TransactionTable = ({ formatAmount }) => {
           <tr key={transaction.id}>
             <td>{transaction.date || 'تاریخ نامعلوم'}</td>
             <td className="income">
-              {transaction.income ? `+${formatAmount(transaction.income)}` : ''}
+              {transaction.income ? `+${Number(transaction.income).toLocaleString('fa-IR')}` : ''}
             </td>
             <td className="outcome">
               {transaction.outcome
-                ? `-${formatAmount(transaction.outcome)}`
+                ? `-${Number(transaction.outcome).toLocaleString('fa-IR')}`
                 : ''}
             </td>
             <td>{transaction.description || 'بدون شرح'}</td>

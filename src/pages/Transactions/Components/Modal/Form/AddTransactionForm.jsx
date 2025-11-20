@@ -68,7 +68,7 @@ const AddTransactionForm = ({ onClose }) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="amount">مبلغ(تومان)</label>
+          <label htmlFor="amount">مبلغ(ریال)</label>
           <input
             type="number"
             id="amount"
