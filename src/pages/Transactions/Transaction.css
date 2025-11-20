@@ -1,5 +1,5 @@
 .transaction-container {
-  width: 100%;
+  width: 90vw;
   max-width: 816px;
   min-height: 820px;
   display: flex;
@@ -8,7 +8,6 @@
   align-items: center;
   gap: 24px;
   text-align: center;
-  /* margin: 102.5px auto; */
   padding: 36px 24px;
   border-radius: 16px;
   background-color: #ffffff;
@@ -51,14 +50,22 @@
   gap: 10px;
 }
 
+.app-header .add-transaction-btn:focus {
+  outline: none;
+}
+
 .add-transaction-btn .add-text {
   max-width: 117px;
   height: 31px;
   font-weight: 400;
   font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .app-main {
+  width: 100%;
   max-width: 768px;
   min-height: 676px;
 }
@@ -73,18 +80,9 @@
   display: none;
 }
 
-.empty-state {
+.transaction-empty-state {
   max-width: 768px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 200px;
-  text-align: center;
-  gap: 8px;
-  opacity: 80%;
   min-height: 400px;
-  color: #6B7580;
 }
 
 .transaction-table {
@@ -144,6 +142,10 @@
   justify-content: center;
 }
 
+.dropdown-toggle:focus {
+  outline: none;
+}
+
 .dropdown-menu {
   position: absolute;
   top: 0;
@@ -180,26 +182,32 @@
   background: #f5f5f5;
 }
 
+.dropdown-item:focus {
+  outline: none;
+}
+
 @media (max-width: 768px) {
   .transaction-container {
-    width: 90%;
+    width: 90vw;
     min-height: 875px;
   }
+
   .transaction-table {
     font-size: 14px;
   }
+
   .transaction-table th,
   .transaction-table td {
-    padding: 12px;
+    padding: 12px 8px;
   }
-  .empty-state{
-    padding: 60px 150px;
+
+  .transaction-empty-state {
+    padding: 60px 10px;
   }
 }
 
 @media (max-width: 480px) {
   .transaction-container {
-    width: 100%;
     max-width: 380px;
     margin: 16px;
     min-height: 875px;
@@ -207,22 +215,27 @@
 
   .app-header {
     max-width: 332px;
+    gap: 12px;
   }
 
   .app-header h1 {
     max-width: 109px;
+    font-size: 18px;
   }
 
   .app-header .add-transaction-btn {
-    /* width: 199px; */
-    padding: 4px 20px;
+    padding: 4px 10px;
+  }
+
+  .app-header .add-transaction-btn .add-text {
+    font-size: 16px;
   }
 
   .app-main {
     width: 100%;
     min-height: 731px;
-    gap: 8px; 
-    display: flex;   
+    gap: 8px;
+    display: flex;
     flex-direction: column;
     align-items: center;
   }
@@ -235,11 +248,6 @@
     display: block;
     width: 100%;
     max-width: 332px;
-  }
-
-  .empty-state {
-    max-width: 332px;
-    padding: 60px 0px;
   }
 
   /* mobile style */
@@ -267,5 +275,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .dropdown-menu {
+    top: 50%;
+    left: 80%;
   }
 }

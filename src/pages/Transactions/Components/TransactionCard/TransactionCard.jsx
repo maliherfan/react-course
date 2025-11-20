@@ -2,7 +2,7 @@ import React from 'react';
 import { useTransaction } from '../../../../context/TransactionContext';
 import '../../Transaction.css';
 
-const TransactionCard = ({ transactionId, formatAmount }) => {
+const TransactionCard = ({ transactionId }) => {
   const { transactions, setModalState } = useTransaction();
 
   const transaction = transactions.find(t => t.id === transactionId);
@@ -35,13 +35,9 @@ const TransactionCard = ({ transactionId, formatAmount }) => {
         </span>
         <div className="transaction-amount">
           {transaction.income ? (
-            <span className="income">
-              {formatAmount(transaction.income)}+ تومان
-            </span>
+            <span className="income">{Number(transaction.income).toLocaleString('fa-IR')}+ تومان</span>
           ) : (
-            <span className="outcome">
-              {formatAmount(transaction.outcome)}- تومان
-            </span>
+            <span className="outcome">{Number(transaction.outcome).toLocaleString('fa-IR')}- تومان</span>
           )}
         </div>
       </div>
