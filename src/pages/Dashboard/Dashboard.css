@@ -131,6 +131,21 @@
   margin-top: 32px;
 }
 
+.recharts-surface:focus {
+  outline: none !important;
+}
+
+.recharts-wrapper *:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.recharts-layer *:focus {
+  outline: none !important;
+  border: none !important;
+}
+
 /* responsive */
 @media (max-width: 768px) {
   .dashboard-container {
