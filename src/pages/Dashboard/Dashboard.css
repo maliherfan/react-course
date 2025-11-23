@@ -11,6 +11,7 @@
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0px;
 }
 
 /* totall expense report */
@@ -130,10 +131,26 @@
   margin-top: 32px;
 }
 
+.recharts-surface:focus {
+  outline: none !important;
+}
+
+.recharts-wrapper *:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.recharts-layer *:focus {
+  outline: none !important;
+  border: none !important;
+}
+
 /* responsive */
 @media (max-width: 768px) {
   .dashboard-container {
     width: 90vw;
+    padding: 0;
   }
 
   .summary-section {
@@ -157,5 +174,11 @@
   .charts-section {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-section {
+    margin-top: 16px;
   }
 }
