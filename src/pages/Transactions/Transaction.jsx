@@ -1,36 +1,20 @@
-import React, { useState } from 'react';
-import { useTransaction } from '../../context/TransactionContext';
+import React from 'react';
+import { useApp } from '../../context/AppContext';
 import TransactionTable from './Components/TransactionTable/TransactionTable';
 import TransactionCard from './Components/TransactionCard/TransactionCard';
 import TransactionModal from './Components/Modal/TransactionModal';
 import TransactionHeader from './Components/TransactionHeader/TransactionHeader';
-import EmptyState from '../../components/EmptyState/EmptyState'
+import EmptyState from '../../components/EmptyState/EmptyState';
 import './Transaction.css';
 
 const Transaction = () => {
-  const { transactions, modalState, setModalState } = useTransaction();
-
-  const handleAddTransaction = () => {
-    setModalState({
-      isOpen: true,
-      type: 'add',
-      transaction: null,
-    });
-  };
-
-  const handleCloseModal = () => {
-    setModalState({
-      isOpen: false,
-      type: null,
-      transaction: null,
-    });
-  };
+  const { transactions, modalState } = useApp();
 
   const hasTransactions = transactions.length > 0;
 
   return (
     <div className="transaction-container">
-      <TransactionHeader onAddTransaction={handleAddTransaction} />
+      <TransactionHeader />
 
       <main className="app-main">
         {!hasTransactions ? (
@@ -46,7 +30,7 @@ const Transaction = () => {
               {transactions.map(transaction => (
                 <TransactionCard
                   key={transaction.id}
-                  transactionId={transaction.id} 
+                  transactionId={transaction.id}
                 />
               ))}
             </div>
@@ -54,7 +38,9 @@ const Transaction = () => {
         )}
       </main>
 
-      {modalState.isOpen && <TransactionModal onClose={handleCloseModal} />}
+      {modalState.isOpen && (
+        <TransactionModal />
+      )}
     </div>
   );
 };

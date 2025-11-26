@@ -1,10 +1,10 @@
 import React from 'react';
-import { useTransaction } from '../../../../context/TransactionContext';
-import AddTransactionForm from './Form/AddTransactionForm';
+import { useApp } from '../../../../context/AppContext';
+import TransactionForm from './Form/TransactionForm';
 import './TransactionModal.css';
 
-const TransactionModal = ({ onClose }) => {
-  const { modalState, dispatch } = useTransaction();
+const TransactionModal = () => {
+  const { modalState, closeModal, dispatch } = useApp();
   const { type: modalType, transaction } = modalState;
 
   const getTitle = () => {
@@ -20,21 +20,13 @@ const TransactionModal = ({ onClose }) => {
     }
   };
 
-  const handleDelete = () => {
-    dispatch({
-      type: 'DELETE_TRANSACTION',
-      payload: transaction.id,
-    });
-    onClose();
-  };
-
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <div className="line"></div>
         <div className="modal-header">
           <h2>{getTitle()}</h2>
-          <button className="close-btn" onClick={onClose}>
+          <button className="close-btn" onClick={closeModal}>
             <img src="public/icons/close.svg" width="16" height="16" />
           </button>
         </div>
@@ -42,20 +34,26 @@ const TransactionModal = ({ onClose }) => {
           <div className="delete-content">
             <p className="delete-question">از حذف تراکنش اطمینان دارید؟</p>
             <div className="form-actions">
-              <button type="button" className="btn-cancel" onClick={onClose}>
+              <button type="button" className="btn-cancel" onClick={closeModal}>
                 انصراف
               </button>
               <button
                 type="button"
                 className="btn-delete"
-                onClick={handleDelete}
+                onClick={() => {
+                  dispatch({
+                    type: 'DELETE_TRANSACTION',
+                    payload: transaction.id,
+                  });
+                  closeModal();
+                }}
               >
                 حذف
               </button>
             </div>
           </div>
         ) : (
-          <AddTransactionForm onClose={onClose} />
+          <TransactionForm />
         )}
       </div>
     </div>

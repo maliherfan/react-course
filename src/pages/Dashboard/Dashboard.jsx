@@ -1,55 +1,46 @@
 import React, { useMemo } from 'react';
-import { useTransaction } from '../../context/TransactionContext';
+import { useApp } from '../../context/AppContext';
 import MonthlyBarChart from './Components/MonthlyBarChart/MonthlyBarChart';
 import ExpensePieChart from './Components/ExpensePieChart/ExpensePieChart';
 import SummarySection from './Components/SummarySection/SummarySection';
 import MonthlyDataSection from './Components/MonthlyDataSection/MonthlyDataSection';
 import EmptyState from '../../components/EmptyState/EmptyState'
+import { normalizeDate } from '../../utils/numberUtils';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const { transactions } = useTransaction();
+  const { transactions } = useApp();
 
-  const { totalIncome, totalExpense, balance } = useMemo(() => {
-    const totalIncome = transactions
-      .filter(t => t.income && t.income !== '' && t.income !== '0')
-      .reduce((sum, t) => sum + parseFloat(t.income), 0);
-
-    const totalExpense = transactions
-      .filter(t => t.outcome && t.outcome !== '' && t.outcome !== '0')
-      .reduce((sum, t) => sum + parseFloat(t.outcome), 0);
-
-    const balance = totalIncome - totalExpense;
-
-    return { totalIncome, totalExpense, balance };
-  }, [transactions]);
-
-  const monthlyData = useMemo(() => {
+  const { totalIncome, totalExpense, balance, monthlyData } = useMemo(() => {
+    const totals = { income: 0, expense: 0 };
     const monthlySums = {};
+    const monthNames = [
+      'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+      'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند',
+    ];
 
     transactions.forEach(transaction => {
       if (!transaction.date) return;
 
-      const [year, month, day] = transaction.date.split('/').map(Number);
-      const monthKey = `${year}-${month}`;
-      console.log(monthKey);
-      const monthNames = [
-        'فروردین',
-        'اردیبهشت',
-        'خرداد',
-        'تیر',
-        'مرداد',
-        'شهریور',
-        'مهر',
-        'آبان',
-        'آذر',
-        'دی',
-        'بهمن',
-        'اسفند',
-      ];
+      // totall calculations
+      if (transaction.income && transaction.income !== '' && transaction.income !== '0') {
+        totals.income += parseFloat(transaction.income);
+      }
+      if (transaction.outcome && transaction.outcome !== '' && transaction.outcome !== '0') {
+        totals.expense += parseFloat(transaction.outcome);
+      }
+
+      // monthly calculations
+      const englishDate = normalizeDate(transaction.date);
+      const [year, month] = englishDate.split('/').map(Number);
+      const monthKey = `${year}-${month.toString().padStart(2, '0')}`;
+
       if (!monthlySums[monthKey]) {
         monthlySums[monthKey] = {
+          key: monthKey,
           name: monthNames[month - 1],
+          year: year,
+          month: month,
           income: 0,
           expense: 0,
           balance: 0,
@@ -63,11 +54,22 @@ const Dashboard = () => {
         monthlySums[monthKey].expense += parseFloat(transaction.outcome);
       }
 
-      monthlySums[monthKey].balance =
-        monthlySums[monthKey].income - monthlySums[monthKey].expense;
+      monthlySums[monthKey].balance = monthlySums[monthKey].income - monthlySums[monthKey].expense;
     });
 
-    return Object.values(monthlySums);
+    const sortedMonths = Object.values(monthlySums).sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      return a.month - b.month;
+    });
+
+    const recentMonths = sortedMonths.slice(-3);
+
+    return {
+      totalIncome: totals.income,
+      totalExpense: totals.expense,
+      balance: totals.income - totals.expense,
+      monthlyData: recentMonths
+    };
   }, [transactions]);
 
   // conditional rendering for empty state

@@ -1,6 +1,6 @@
 .transaction-container {
   width: 90vw;
-  max-width: 816px;
+  max-width: 790px;
   min-height: 820px;
   display: flex;
   flex-direction: column;
@@ -149,7 +149,7 @@
 .dropdown-menu {
   position: absolute;
   top: 0;
-  left: 30%;
+  left: 50%;
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

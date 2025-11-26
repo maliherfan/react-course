@@ -39,7 +39,7 @@ const ExpensePieChart = ({ totalIncome, totalExpense }) => {
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value) => [`${value.toLocaleString('fa-IR')} ریال (${(value/(totalIncome+totalExpense)*100).toFixed(2)}%)`, 'مقدار']}
+            formatter={(value) => [`${value.toLocaleString('fa-IR')} تومان (${(value/(totalIncome+totalExpense)*100).toFixed(2)}%)`, 'مقدار']}
           />
           <Legend />
         </PieChart>

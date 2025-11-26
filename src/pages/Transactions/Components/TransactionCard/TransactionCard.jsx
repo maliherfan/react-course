@@ -1,31 +1,15 @@
 import React from 'react';
-import { useTransaction } from '../../../../context/TransactionContext';
+import { useApp } from '../../../../context/AppContext';
 import '../../Transaction.css';
 
 const TransactionCard = ({ transactionId }) => {
-  const { transactions, setModalState } = useTransaction();
+  const { transactions, openEditModal, openDeleteModal } = useApp();
 
   const transaction = transactions.find(t => t.id === transactionId);
 
   if (!transaction) {
     return null;
   }
-
-  const handleEdit = () => {
-    setModalState({
-      isOpen: true,
-      type: 'edit',
-      transaction: transaction,
-    });
-  };
-
-  const handleDelete = () => {
-    setModalState({
-      isOpen: true,
-      type: 'delete',
-      transaction: transaction,
-    });
-  };
 
   return (
     <div className="transaction-card">
@@ -49,11 +33,11 @@ const TransactionCard = ({ transactionId }) => {
             <img src="public/icons/dot.svg" width="24" height="24" />
           </button>
           <div className="dropdown-menu">
-            <button className="dropdown-item edit-btn" onClick={handleEdit}>
+            <button className="dropdown-item edit-btn" onClick={() => openEditModal(transaction)}>
               <img src="public/icons/edit.svg" width="16" height="16" />
               ویرایش
             </button>
-            <button className="dropdown-item delete-btn" onClick={handleDelete}>
+            <button className="dropdown-item delete-btn" onClick={() => openDeleteModal(transaction)}>
               <img src="public/icons/trash.svg" width="16" height="16" />
               حذف
             </button>

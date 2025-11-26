@@ -1,25 +1,9 @@
 import React from 'react';
-import { useTransaction } from '../../../../context/TransactionContext';
+import { useApp } from '../../../../context/AppContext';
 import '../../Transaction.css';
 
 const TransactionTable = () => {
-  const { transactions, setModalState } = useTransaction();
-
-  const handleEdit = transaction => {
-    setModalState({
-      isOpen: true,
-      type: 'edit',
-      transaction: transaction,
-    });
-  };
-
-  const handleDelete = transaction => {
-    setModalState({
-      isOpen: true,
-      type: 'delete',
-      transaction: transaction,
-    });
-  };
+  const { transactions, openEditModal, openDeleteModal } = useApp();
 
   return (
     <table className="transaction-table">
@@ -53,14 +37,14 @@ const TransactionTable = () => {
                 <div className="dropdown-menu">
                   <button
                     className="dropdown-item edit-btn"
-                    onClick={() => handleEdit(transaction)}
+                    onClick={() => openEditModal(transaction)}
                   >
                     <img src="public/icons/edit.svg" width="16" height="16" />
                     ویرایش
                   </button>
                   <button
                     className="dropdown-item delete-btn"
-                    onClick={() => handleDelete(transaction)}
+                    onClick={() => openDeleteModal(transaction)}
                   >
                     <img src="public/icons/trash.svg" width="16" height="16" />
                     حذف

@@ -1,5 +1,10 @@
-import React, { createContext, useContext, useReducer, useEffect, useState } from 'react';
-import { mockTransactions } from '../constants/mockData';
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useState,
+} from 'react';
 
 const transactionReducer = (state, action) => {
   switch (action.type) {
@@ -30,35 +35,69 @@ const transactionReducer = (state, action) => {
   }
 };
 
-const TransactionContext = createContext();
+const AppContext = createContext();
 
-export const useTransaction = () => {
-  const context = useContext(TransactionContext);
+export const useApp = () => {
+  const context = useContext(AppContext);
   if (!context) {
     throw new Error('useTransaction must be used within a TransactionProvider');
   }
   return context;
 };
 
-export const TransactionProvider = ({ children }) => {
+export const AppProvider = ({ children }) => {
   // get data from localstorage or use mockdata on loading state
   const getInitialState = () => {
     try {
       const savedData = localStorage.getItem('expenseTrackerData');
-      const transactions = savedData ? JSON.parse(savedData) : mockTransactions;
+      const transactions = savedData ? JSON.parse(savedData) : [];
       return { transactions };
     } catch (error) {
       console.error('Error loading initial data:', error);
-      return { transactions: mockTransactions };
+      return { transactions: [] };
     }
   };
 
+  // transaction part
   const [state, dispatch] = useReducer(transactionReducer, getInitialState());
+  // modal part
   const [modalState, setModalState] = useState({
     isOpen: false,
-    type: null, // 'add', 'edit', 'delete'
-    transaction: null
+    type: null,
+    transaction: null,
   });
+  // modal functions
+  const openAddModal = () => {
+    setModalState({
+      isOpen: true,
+      type: 'add',
+      transaction: null,
+    });
+  };
+
+  const openEditModal = transaction => {
+    setModalState({
+      isOpen: true,
+      type: 'edit',
+      transaction,
+    });
+  };
+
+  const openDeleteModal = transaction => {
+    setModalState({
+      isOpen: true,
+      type: 'delete',
+      transaction,
+    });
+  };
+
+  const closeModal = () => {
+    setModalState({
+      isOpen: false,
+      type: null,
+      transaction: null,
+    });
+  };
 
   // update localStorage whenever transaction list change
   useEffect(() => {
@@ -72,18 +111,19 @@ export const TransactionProvider = ({ children }) => {
     }
   }, [state.transactions]);
 
-   const value = {
+  const value = {
+    //transaction
     transactions: state.transactions,
-    modalState,
     dispatch,
-    setModalState
+    //modal
+    modalState,
+    openAddModal,
+    openEditModal,
+    openDeleteModal,
+    closeModal,
   };
 
-  return (
-    <TransactionContext.Provider value={value}>
-      {children}
-    </TransactionContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
-export default TransactionContext;
+export default AppContext;

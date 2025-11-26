@@ -24,9 +24,9 @@ const MonthlyBarChart = ({ data }) => {
 
   return (
     <div className="chart-container">
-      <h3>وضعیت ماهانه درآمد و هزینه</h3>
+      <h3>وضعیت ماه های اخیر درآمد و هزینه</h3>
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
+        <BarChart data={data} barSize={40} barGap={5}>
           <XAxis
             dataKey="name"
             angle={-45}
@@ -36,12 +36,12 @@ const MonthlyBarChart = ({ data }) => {
           />
           <YAxis tick={{ fontSize: 12 }} textAnchor="start" />
           <Tooltip
-            formatter={value => value.toLocaleString('fa-IR') + ' ریال'}
+            formatter={value => value.toLocaleString('fa-IR') + ' تومان'}
             labelFormatter={label => `ماه: ${label}`}
           />
           <Legend />
-          <Bar dataKey="income" name="درآمد" fill="#3ebda0" />
-          <Bar dataKey="expense" name="هزینه" fill="#ef4e4e" />
+          <Bar dataKey="income" name="درآمد" fill="#3ebda0" radius={[4, 4, 0, 0]}/>
+          <Bar dataKey="expense" name="هزینه" fill="#ef4e4e" radius={[4, 4, 0, 0]}/>
         </BarChart>
       </ResponsiveContainer>
     </div>
