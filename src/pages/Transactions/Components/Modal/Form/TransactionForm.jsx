@@ -3,7 +3,14 @@ import { useApp } from '../../../../../context/AppContext';
 import './TransactionForm.css';
 
 const TransactionForm = () => {
-  const { modalState, closeModal, dispatch } = useApp();
+  const {
+    modalState,
+    closeModal,
+    addTransaction,
+    updateTransaction,
+    loading,
+    error,
+  } = useApp();
   const { type: modalType, transaction } = modalState;
   const [formData, setFormData] = useState({
     date: '',
@@ -17,7 +24,8 @@ const TransactionForm = () => {
     if (modalType === 'edit' && transaction) {
       // edit - full form
 
-      const amount = transaction.income !== '' ? transaction.income : transaction.outcome;
+      const amount =
+        transaction.income !== '' ? transaction.income : transaction.outcome;
       setFormData({
         date: transaction.date || '',
         amount: amount || '',
@@ -35,7 +43,7 @@ const TransactionForm = () => {
     }
   }, [modalType, transaction]);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (!formData.date || !formData.amount || !formData.description) {
@@ -43,36 +51,23 @@ const TransactionForm = () => {
       return;
     }
 
-    if (modalType === 'edit' && transaction) {
-      dispatch({
-        type: 'EDIT_TRANSACTION',
-        payload: {
-          id: transaction.id,
-          updatedData: {
-            id: transaction.id,
-            date: formData.date,
-            income: formData.type === 'income' ? formData.amount : '',
-            outcome: formData.type === 'outcome' ? formData.amount : '',
-            description: formData.description,
-          },
-        },
-      });
-    } else {
-      const newTransaction = {
-        id: Date.now(),
+    try {
+      const transactionData = {
         date: formData.date,
         income: formData.type === 'income' ? formData.amount : '',
         outcome: formData.type === 'outcome' ? formData.amount : '',
         description: formData.description,
       };
 
-      dispatch({
-        type: 'ADD_TRANSACTION',
-        payload: newTransaction,
-      });
+      if (modalType === 'edit' && transaction) {
+        await updateTransaction(transaction.id, transactionData);
+      } else {
+        await addTransaction(transactionData);
+      }
+      closeModal();
+    } catch (error) {
+      console.error('Transaction submission error:', error);
     }
-
-    closeModal();
   };
 
   const handleChange = e => {
@@ -86,6 +81,7 @@ const TransactionForm = () => {
   return (
     <form onSubmit={handleSubmit} className="transaction-form">
       <div className="form-groups">
+        {error && <div className="form-error-message">⚠️ {error}</div>}
         <div className="form-group">
           <label htmlFor="date">تاریخ</label>
           <div className="date-input-wrapper">
@@ -95,11 +91,12 @@ const TransactionForm = () => {
               name="date"
               value={formData.date}
               onChange={handleChange}
+              disabled={loading}
               required
             />
             <img
               className="calendar-icon"
-              src="public/icons/calender.svg"
+              src="/icons/calender.svg"
               alt="انتخاب تاریخ"
               width="24"
               height="24"
@@ -115,6 +112,7 @@ const TransactionForm = () => {
             name="amount"
             value={formData.amount}
             onChange={handleChange}
+            disabled={loading}
             required
           />
         </div>
@@ -128,6 +126,7 @@ const TransactionForm = () => {
               value="income"
               checked={formData.type === 'income'}
               onChange={handleChange}
+              disabled={loading}
             />
             <label className="type-option">
               <span className="type-label">درآمد</span>
@@ -139,6 +138,7 @@ const TransactionForm = () => {
               value="outcome"
               checked={formData.type === 'outcome'}
               onChange={handleChange}
+              disabled={loading}
             />
             <label className="type-option">
               <span className="type-label">هزینه</span>
@@ -154,17 +154,32 @@ const TransactionForm = () => {
             name="description"
             value={formData.description}
             onChange={handleChange}
+            disabled={loading}
             required
           />
         </div>
       </div>
 
       <div className="form-actions">
-        <button type="button" className="btn-cancel" onClick={closeModal}>
+        <button
+          type="button"
+          className="btn-cancel"
+          onClick={closeModal}
+          disabled={loading}
+        >
           انصراف
         </button>
-        <button type="submit" className="btn-submit">
-          {modalType === 'edit' ? 'ثبت تغییرات' : 'ثبت'}
+        <button type="submit" className="btn-submit" disabled={loading}>
+          {loading ? (
+            <>
+              <span className="loading-spinner"></span>
+              در حال ثبت...
+            </>
+          ) : modalType === 'edit' ? (
+            'ثبت تغییرات'
+          ) : (
+            'ثبت تراکنش'
+          )}
         </button>
       </div>
     </form>
