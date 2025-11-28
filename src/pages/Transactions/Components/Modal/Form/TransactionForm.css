@@ -137,6 +137,44 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-error-message {
+  background: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 0 24px 16px;
+  text-align: right;
+  font-size: 14px;
+  border-right: 4px solid #c33;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-submit:disabled,
+.btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {

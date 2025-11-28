@@ -3,18 +3,49 @@ import React, {
   useContext,
   useReducer,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
+import Api from '../services/Api';
 
+//reducer - state management
 const transactionReducer = (state, action) => {
   switch (action.type) {
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case 'SET_ERROR':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case 'SET_TRANSACTIONS':
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        transactions: action.payload,
+      };
+
     case 'ADD_TRANSACTION':
       return {
+        ...state,
+        loading: false,
+        error: null,
         transactions: [action.payload, ...state.transactions],
       };
 
     case 'DELETE_TRANSACTION':
       return {
+        ...state,
+        loading: false,
+        error: null,
         transactions: state.transactions.filter(
           transaction => transaction.id !== action.payload
         ),
@@ -23,6 +54,9 @@ const transactionReducer = (state, action) => {
     case 'EDIT_TRANSACTION':
       const { id, updatedData } = action.payload;
       return {
+        ...state,
+        loading: false,
+        error: null,
         transactions: state.transactions.map(transaction =>
           transaction.id === id
             ? { ...transaction, ...updatedData }
@@ -35,32 +69,79 @@ const transactionReducer = (state, action) => {
   }
 };
 
+//context part
 const AppContext = createContext();
+export const useApp = () => useContext(AppContext);
 
-export const useApp = () => {
-  const context = useContext(AppContext);
-  if (!context) {
-    throw new Error('useTransaction must be used within a TransactionProvider');
-  }
-  return context;
-};
-
+//context provider
 export const AppProvider = ({ children }) => {
-  // get data from localstorage or use mockdata on loading state
-  const getInitialState = () => {
+  const initialState = {
+    transactions: [],
+    loading: false,
+    error: null,
+  };
+
+  // transaction state management
+  const [state, dispatch] = useReducer(transactionReducer, initialState);
+
+  // remove error after 5 seconds
+  useEffect(() => {
+    if (state.error) {
+      const timer = setTimeout(() => {
+        dispatch({ type: 'SET_ERROR', payload: null });
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [state.error]);
+
+  //helper for async actions
+  const asyncAction = async (requestFn, onSuccess) => {
+    dispatch({ type: 'SET_LOADING' });
     try {
-      const savedData = localStorage.getItem('expenseTrackerData');
-      const transactions = savedData ? JSON.parse(savedData) : [];
-      return { transactions };
+      const result = await requestFn();
+      onSuccess(result);
+      return result;
     } catch (error) {
-      console.error('Error loading initial data:', error);
-      return { transactions: [] };
+      dispatch({ type: 'SET_ERROR', payload: error.message });
+      throw error;
     }
   };
 
-  // transaction part
-  const [state, dispatch] = useReducer(transactionReducer, getInitialState());
-  // modal part
+  // API actions
+  const loadTransactions = () =>
+    asyncAction(Api.fetchTransactions, data =>
+      dispatch({ type: 'SET_TRANSACTIONS', payload: data })
+    );
+
+  const addTransaction = data =>
+    asyncAction(
+      () => Api.addTransaction(data),
+      newTx => dispatch({ type: 'ADD_TRANSACTION', payload: newTx })
+    );
+
+  const updateTransaction = (id, updated) =>
+    asyncAction(
+      () => Api.updateTransaction(id, updated),
+      updatedTx =>
+        dispatch({
+          type: 'EDIT_TRANSACTION',
+          payload: { id, updatedData: updatedTx },
+        })
+    );
+
+  const deleteTransaction = id =>
+    asyncAction(
+      () => Api.deleteTransaction(id),
+      () => dispatch({ type: 'DELETE_TRANSACTION', payload: id })
+    );
+
+  // first loading data from API
+  useEffect(() => {
+    loadTransactions();
+  }, []);
+
+  // modal management
   const [modalState, setModalState] = useState({
     isOpen: false,
     type: null,
@@ -99,29 +180,25 @@ export const AppProvider = ({ children }) => {
     });
   };
 
-  // update localStorage whenever transaction list change
-  useEffect(() => {
-    try {
-      localStorage.setItem(
-        'expenseTrackerData',
-        JSON.stringify(state.transactions)
-      );
-    } catch (error) {
-      console.error('Error saving transactions:', error);
-    }
-  }, [state.transactions]);
+  const value = useMemo(
+    () => ({
+      transactions: state.transactions,
+      loading: state.loading,
+      error: state.error,
 
-  const value = {
-    //transaction
-    transactions: state.transactions,
-    dispatch,
-    //modal
-    modalState,
-    openAddModal,
-    openEditModal,
-    openDeleteModal,
-    closeModal,
-  };
+      loadTransactions,
+      addTransaction,
+      updateTransaction,
+      deleteTransaction,
+
+      modalState,
+      openAddModal,
+      openEditModal,
+      openDeleteModal,
+      closeModal,
+    }),
+    [state, modalState]
+  );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
