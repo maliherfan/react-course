@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useTransaction } from '../../../../../context/TransactionContext';
-import './AddTransactionForm.css';
+import { useApp } from '../../../../../context/AppContext';
+import './TransactionForm.css';
 
-const AddTransactionForm = ({ onClose }) => {
-  const { modalState, dispatch } = useTransaction();
+const TransactionForm = () => {
+  const { modalState, closeModal, dispatch } = useApp();
   const { type: modalType, transaction } = modalState;
   const [formData, setFormData] = useState({
     date: '',
@@ -72,7 +72,7 @@ const AddTransactionForm = ({ onClose }) => {
       });
     }
 
-    onClose();
+    closeModal();
   };
 
   const handleChange = e => {
@@ -108,7 +108,7 @@ const AddTransactionForm = ({ onClose }) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="amount">مبلغ(ریال)</label>
+          <label htmlFor="amount">مبلغ(تومان)</label>
           <input
             type="number"
             id="amount"
@@ -160,7 +160,7 @@ const AddTransactionForm = ({ onClose }) => {
       </div>
 
       <div className="form-actions">
-        <button type="button" className="btn-cancel" onClick={onClose}>
+        <button type="button" className="btn-cancel" onClick={closeModal}>
           انصراف
         </button>
         <button type="submit" className="btn-submit">
@@ -171,4 +171,4 @@ const AddTransactionForm = ({ onClose }) => {
   );
 };
 
-export default AddTransactionForm;
+export default TransactionForm;

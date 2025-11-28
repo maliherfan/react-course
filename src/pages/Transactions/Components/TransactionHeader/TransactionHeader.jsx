@@ -1,10 +1,13 @@
 import React from 'react';
+import { useApp } from '../../../../context/AppContext';
 
-const TransactionHeader = ({ onAddTransaction }) => {
+const TransactionHeader = () => {
+  const { openAddModal } = useApp();
+
   return (
     <header className="app-header">
       <h1>تراکنش‌ها</h1>
-      <button className="add-transaction-btn" onClick={onAddTransaction}>
+      <button className="add-transaction-btn" onClick={openAddModal}>
         <img
           src="public/icons/plus.svg"
           alt="افزودن تراکنش"

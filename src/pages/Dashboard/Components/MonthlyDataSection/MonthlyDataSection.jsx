@@ -3,7 +3,7 @@ import React from 'react';
 const MonthlyDataSection = ({ monthlyData }) => {
   return (
     <>
-      <h3>📊 داده‌های ماهانه </h3>
+      <h3>📊 داده‌های ماهانه(چند ماه اخیر) </h3>
       <div className="monthly-data-grid">
         {monthlyData.map((month, index) => (
           <div key={index} className="month-data-card">
@@ -12,19 +12,19 @@ const MonthlyDataSection = ({ monthlyData }) => {
               <div className="amount-row">
                 <span>درآمد:</span>
                 <span className="income">
-                  {month.income.toLocaleString('fa-IR') + ' ريال'}
+                  {month.income.toLocaleString('fa-IR') + ' تومان'}
                 </span>
               </div>
               <div className="amount-row">
                 <span>هزینه:</span>
                 <span className="expense">
-                  {month.expense.toLocaleString('fa-IR') + ' ريال'}
+                  {month.expense.toLocaleString('fa-IR') + ' تومان'}
                 </span>
               </div>
               <div className="amount-row">
                 <span>تراز:</span>
                 <span className={month.balance >= 0 ? 'income' : 'expense'}>
-                  {Math.abs(month.balance).toLocaleString('fa-IR') + ' ريال'}
+                  {Math.abs(month.balance).toLocaleString('fa-IR') + ' تومان'}
                 </span>
               </div>
             </div>
