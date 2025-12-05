@@ -22,109 +22,18 @@
       "description": "خرید"
     },
     {
-      "id": "f7c6",
+      "id": "423b",
+      "date": "1404/05/13",
+      "income": "",
+      "outcome": "320000",
+      "description": "سوپرمارکت"
+    },
+    {
+      "id": "f6d0",
       "date": "1404/08/24",
-      "income": "",
-      "outcome": "300000",
-      "description": "آرایشگاه"
-    },
-    {
-      "id": "3a2d",
-      "date": "۱۴۰۴/۷/۲۲",
-      "income": "",
-      "outcome": "400000",
-      "description": "خرید"
-    },
-    {
-      "id": "b3ae",
-      "date": "1404/08/09",
-      "income": "",
-      "outcome": "400000",
-      "description": "خرید"
-    },
-    {
-      "id": "c957",
-      "date": "1404/03/24",
-      "income": "",
-      "outcome": "450000",
-      "description": "غذا"
-    },
-    {
-      "id": "feca",
-      "date": "1404/09/13",
-      "income": "4000000",
-      "outcome": "",
-      "description": "پروژه"
-    },
-    {
-      "id": "f76d",
-      "date": "۱۴۰۴/۷/۲۶",
-      "income": "",
-      "outcome": "80000",
-      "description": "اسنپ"
-    },
-    {
-      "id": "d098",
-      "date": "1404/05/16",
       "income": "1200000",
       "outcome": "",
-      "description": "قسط سوم کاریار"
-    },
-    {
-      "id": "25b5",
-      "date": "1404/08/14",
-      "income": "",
-      "outcome": "50000",
-      "description": "سوپری"
-    },
-    {
-      "id": "e8f1",
-      "date": "1404/07/15",
-      "income": "",
-      "outcome": "900000",
-      "description": "کفش"
-    },
-    {
-      "id": "e592",
-      "date": "1404/09/13",
-      "income": "",
-      "outcome": "40000",
-      "description": "آرایشگاه"
-    },
-    {
-      "id": "b36e",
-      "date": "1404/07/5",
-      "income": "1000000",
-      "outcome": "",
-      "description": "بدهی"
-    },
-    {
-      "id": "2e2c",
-      "date": "1404/09/24",
-      "income": "",
-      "outcome": "500000",
-      "description": "شلوار"
-    },
-    {
-      "id": "f1a6",
-      "date": "1404/07/6",
-      "income": "",
-      "outcome": "100000",
-      "description": "قهوه"
-    },
-    {
-      "id": "79f7",
-      "date": "1404/05/9",
-      "income": "",
-      "outcome": "150000",
-      "description": "قهوه 3"
-    },
-    {
-      "id": "7020",
-      "date": "1404/09/07",
-      "income": "2000000",
-      "outcome": "",
-      "description": "درامد پروژه 2"
+      "description": "حقوق"
     }
   ]
 }
