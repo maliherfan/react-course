@@ -10,6 +10,7 @@ const API_BASE_URL = 'http://localhost:3001/transactions';
 //context provider
 export const AppProvider = ({ children }) => {
   //just call once whenever component mounts
+  //first loading of data & get fetcher for future CRUD actions
   const { data, loading, error, fetcher } = useFetch(`${API_BASE_URL}`);
 
   const transactions = useMemo(() => {

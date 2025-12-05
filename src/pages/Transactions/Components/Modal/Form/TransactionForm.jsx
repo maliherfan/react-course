@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../../../../context/AppContext';
+import DatePicker from 'react-multi-date-picker';
+import persian from 'react-date-object/calendars/persian';
+import persian_fa from 'react-date-object/locales/persian_fa';
 import './TransactionForm.css';
 
 const TransactionForm = () => {
@@ -78,6 +81,13 @@ const TransactionForm = () => {
     }));
   };
 
+  const handleDateChange = value => {
+    setFormData(prev => ({
+      ...prev,
+      date: value?.format?.('YYYY/MM/DD') || '',
+    }));
+  };
+
   return (
     <form onSubmit={handleSubmit} className="transaction-form">
       <div className="form-groups">
@@ -85,13 +95,16 @@ const TransactionForm = () => {
         <div className="form-group">
           <label htmlFor="date">تاریخ</label>
           <div className="date-input-wrapper">
-            <input
-              type="text"
+            <DatePicker
+              calendar={persian}
+              locale={persian_fa}
               id="date"
               name="date"
               value={formData.date}
-              onChange={handleChange}
+              onChange={handleDateChange}
+              format="YYYY/MM/DD"
               disabled={loading}
+              offsetY={-20}
               required
             />
             <img
