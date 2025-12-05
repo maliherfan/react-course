@@ -1,5 +1,4 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import { normalizeDate } from '../utils/numberUtils';
 import useFetch from '../hooks/useFetch';
 
 //context part
@@ -17,7 +16,7 @@ export const AppProvider = ({ children }) => {
   const sortedTransactions = useMemo(() => {
     return [...data].sort(
       (a, b) =>
-        new Date(normalizeDate(b.date)) - new Date(normalizeDate(a.date))
+        new Date(b.date) - new Date(a.date)
     );
   }, [data]);
 

@@ -3,6 +3,7 @@ import { useApp } from '../../../../../context/AppContext';
 import DatePicker from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
+import { toEnglishNumbers } from '../../../../../utils/numberUtils';
 import './TransactionForm.css';
 
 const TransactionForm = () => {
@@ -56,7 +57,7 @@ const TransactionForm = () => {
 
     try {
       const transactionData = {
-        date: formData.date,
+        date: toEnglishNumbers(formData.date),
         income: formData.type === 'income' ? formData.amount : '',
         outcome: formData.type === 'outcome' ? formData.amount : '',
         description: formData.description,
