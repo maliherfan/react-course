@@ -46,13 +46,34 @@
   box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
 }
 
-.date-input-wrapper {
-  position: relative;
-  width: 312px;
+/* date picker part */
+.rmdp-input {
+  width: 305px !important;
+  height: 40px !important;
+  border: 1px solid #d0d7de !important;
+  border-radius: 6px !important;
+  background: white !important;
+  box-sizing: border-box !important;
+  position: relative !important;
 }
 
-.date-input-wrapper input {
-  width: 100%;
+.rmdp-calendar {
+  height: 245px !important;
+  padding: 0px !important;
+}
+
+.rmdp-day {
+  font-size: 14px !important;
+}
+
+.rmdp-header {
+  height: 30px !important;
+}
+
+.date-input-wrapper {
+  width: 312px;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .calendar-icon {
@@ -82,20 +103,20 @@
   appearance: none;
 }
 
-.type-selector input[type="radio"]:checked{
+.type-selector input[type='radio']:checked {
   border: 1px solid #0e33f3;
 }
 
-.type-selector input[type="radio"]:checked::after {
-  content: "";
+.type-selector input[type='radio']:checked::after {
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 10px;  
-  height: 10px; 
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: #0e33f3; 
+  background: #0e33f3;
 }
 
 .type-selector .type-option {
@@ -184,6 +205,10 @@
     width: 240px;
   }
 
+  .rmdp-input {
+    width: 240px !important;
+  }
+
   .form-group > label {
     width: 90px;
   }
@@ -202,6 +227,14 @@
   .type-selector,
   .date-input-wrapper {
     width: 220px;
+  }
+
+  .rmdp-input {
+    width: 220px !important;
+  }
+
+  .rmdp-calendar {
+    height: auto !important;
   }
 
   .type-selector input {
@@ -231,6 +264,10 @@
   .type-selector,
   .date-input-wrapper {
     width: 180px;
+  }
+
+  .rmdp-input {
+    width: 180px !important;
   }
 
   .type-selector input {

@@ -5,7 +5,6 @@ import ExpensePieChart from './Components/ExpensePieChart/ExpensePieChart';
 import SummarySection from './Components/SummarySection/SummarySection';
 import MonthlyDataSection from './Components/MonthlyDataSection/MonthlyDataSection';
 import EmptyState from '../../components/EmptyState/EmptyState'
-import { normalizeDate } from '../../utils/numberUtils';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -31,9 +30,8 @@ const Dashboard = () => {
       }
 
       // monthly calculations
-      const englishDate = normalizeDate(transaction.date);
-      const [year, month] = englishDate.split('/').map(Number);
-      const monthKey = `${year}-${month.toString().padStart(2, '0')}`;
+      const [year, month] = transaction.date.split('/').map(Number);
+      const monthKey = `${year}-${month}`;
 
       if (!monthlySums[monthKey]) {
         monthlySums[monthKey] = {
