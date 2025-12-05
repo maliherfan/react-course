@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState } from 'react';
+import { normalizeDate } from '../utils/numberUtils';
 import useFetch from '../hooks/useFetch';
 
 //context part
@@ -13,8 +14,11 @@ export const AppProvider = ({ children }) => {
   //first loading of data & get fetcher for future CRUD actions
   const { data, loading, error, fetcher } = useFetch(`${API_BASE_URL}`);
 
-  const transactions = useMemo(() => {
-    return [...data].reverse();
+  const sortedTransactions = useMemo(() => {
+    return [...data].sort(
+      (a, b) =>
+        new Date(normalizeDate(b.date)) - new Date(normalizeDate(a.date))
+    );
   }, [data]);
 
   //CRUD operations
@@ -62,7 +66,7 @@ export const AppProvider = ({ children }) => {
 
   const value = useMemo(
     () => ({
-      transactions,
+      transactions: sortedTransactions,
       loading,
       error,
 
@@ -76,7 +80,7 @@ export const AppProvider = ({ children }) => {
       openDeleteModal,
       closeModal,
     }),
-    [transactions, loading, error, modalState]
+    [sortedTransactions, loading, error, modalState]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
