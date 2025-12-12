@@ -1,5 +1,4 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import { normalizeDate } from '../utils/numberUtils';
 import useFetch from '../hooks/useFetch';
 
 //context part
@@ -11,12 +10,13 @@ const API_BASE_URL = 'http://localhost:3001/transactions';
 //context provider
 export const AppProvider = ({ children }) => {
   //just call once whenever component mounts
+  //first loading of data & get fetcher for future CRUD actions
   const { data, loading, error, fetcher } = useFetch(`${API_BASE_URL}`);
 
   const sortedTransactions = useMemo(() => {
     return [...data].sort(
       (a, b) =>
-        new Date(normalizeDate(b.date)) - new Date(normalizeDate(a.date))
+        new Date(b.date) - new Date(a.date)
     );
   }, [data]);
 
