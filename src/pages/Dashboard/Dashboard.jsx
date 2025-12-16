@@ -139,17 +139,13 @@ const Dashboard = () => {
             />
           </div>
 
-          {hasMonthlyData && (
-            <div className="monthly-data-section">
-              <MonthlyDataSection monthlyData={monthlyData} />
-            </div>
-          )}
+          <div className="monthly-data-section">
+            <MonthlyDataSection monthlyData={monthlyData} />
+          </div>
 
-          {hasMonthlyData && (
-            <div className="charts-section">
-              <MonthlyBarChart data={monthlyData} />
-            </div>
-          )}
+          <div className="charts-section">
+            <MonthlyBarChart data={monthlyData} />
+          </div>
         </>
       )}
     </div>

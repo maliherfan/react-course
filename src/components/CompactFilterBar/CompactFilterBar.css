@@ -50,6 +50,10 @@
   width: 100% !important;
 }
 
+.compact-filter-bar .rmdp-calendar {
+  height: auto !important;
+}
+
 .date-picker-input:hover {
   border-color: #adb5bd !important;
 }
