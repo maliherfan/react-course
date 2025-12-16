@@ -3,7 +3,7 @@
   import '../../Transaction.css';
 
   const TransactionTable = () => {
-    const { transactions, openEditModal, openDeleteModal } = useApp();
+    const { filteredTransactions, openEditModal, openDeleteModal } = useApp();
 
     return (
       <table className="transaction-table">
@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          {transactions.map(transaction => (
+          {filteredTransactions.map(transaction => (
             <tr key={transaction.id}>
               <td>{transaction.date || 'تاریخ نامعلوم'}</td>
               <td className="income">

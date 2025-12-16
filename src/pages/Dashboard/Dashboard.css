@@ -1,12 +1,11 @@
 .dashboard-container {
-  width: 58vw;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 90vw;
+  max-width: 790px;
+  min-height: 820px;
 }
 
 .dashboard-empty-state {
   margin: 0 auto;
-  max-width: 768px;
   padding: 80px 20px;
   background: #ffffff;
   border-radius: 16px;
@@ -178,7 +177,8 @@
 }
 
 @media (max-width: 480px) {
-  .summary-section {
-    margin-top: 16px;
+  .dashboard-container {
+    max-width: 90vw;
+    padding: 16px 0px !important;
   }
 }

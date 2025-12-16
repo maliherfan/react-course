@@ -3,9 +3,9 @@ import { useApp } from '../../../../context/AppContext';
 import '../../Transaction.css';
 
 const TransactionCard = ({ transactionId }) => {
-  const { transactions, openEditModal, openDeleteModal } = useApp();
+  const { filteredTransactions, openEditModal, openDeleteModal } = useApp();
 
-  const transaction = transactions.find(t => t.id === transactionId);
+  const transaction = filteredTransactions.find(t => t.id === transactionId);
 
   if (!transaction) {
     return null;

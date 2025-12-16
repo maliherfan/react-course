@@ -4,32 +4,59 @@ import MonthlyBarChart from './Components/MonthlyBarChart/MonthlyBarChart';
 import ExpensePieChart from './Components/ExpensePieChart/ExpensePieChart';
 import SummarySection from './Components/SummarySection/SummarySection';
 import MonthlyDataSection from './Components/MonthlyDataSection/MonthlyDataSection';
-import EmptyState from '../../components/EmptyState/EmptyState'
+import CompactFilterBar from '../../components/CompactFilterBar/CompactFilterBar';
+import EmptyState from '../../components/EmptyState/EmptyState';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const { transactions } = useApp();
+  const {
+    transactions,
+    filteredTransactions,
+    filters,
+    sortBy,
+    updateFilters,
+    updateSortBy,
+  } = useApp();
+
+  const hasTransactions = transactions.length > 0;
+  const hasFilteredData = filteredTransactions.length > 0;
 
   const { totalIncome, totalExpense, balance, monthlyData } = useMemo(() => {
     const totals = { income: 0, expense: 0 };
     const monthlySums = {};
     const monthNames = [
-      'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-      'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند',
+      'فروردین',
+      'اردیبهشت',
+      'خرداد',
+      'تیر',
+      'مرداد',
+      'شهریور',
+      'مهر',
+      'آبان',
+      'آذر',
+      'دی',
+      'بهمن',
+      'اسفند',
     ];
 
-    transactions.forEach(transaction => {
+    filteredTransactions.forEach(transaction => {
       if (!transaction.date) return;
 
-      // totall calculations
-      if (transaction.income && transaction.income !== '' && transaction.income !== '0') {
+      if (
+        transaction.income &&
+        transaction.income !== '' &&
+        transaction.income !== '0'
+      ) {
         totals.income += parseFloat(transaction.income);
       }
-      if (transaction.outcome && transaction.outcome !== '' && transaction.outcome !== '0') {
+      if (
+        transaction.outcome &&
+        transaction.outcome !== '' &&
+        transaction.outcome !== '0'
+      ) {
         totals.expense += parseFloat(transaction.outcome);
       }
 
-      // monthly calculations
       const [year, month] = transaction.date.split('/').map(Number);
       const monthKey = `${year}-${month}`;
 
@@ -52,7 +79,8 @@ const Dashboard = () => {
         monthlySums[monthKey].expense += parseFloat(transaction.outcome);
       }
 
-      monthlySums[monthKey].balance = monthlySums[monthKey].income - monthlySums[monthKey].expense;
+      monthlySums[monthKey].balance =
+        monthlySums[monthKey].income - monthlySums[monthKey].expense;
     });
 
     const sortedMonths = Object.values(monthlySums).sort((a, b) => {
@@ -66,51 +94,64 @@ const Dashboard = () => {
       totalIncome: totals.income,
       totalExpense: totals.expense,
       balance: totals.income - totals.expense,
-      monthlyData: recentMonths
+      monthlyData: recentMonths,
     };
-  }, [transactions]);
+  }, [filteredTransactions]);
 
-  // conditional rendering for empty state
-  if (transactions.length === 0) {
-    return (
-      <div className="dashboard-container">
-        <div className="dashboard-empty-state">
-          <EmptyState 
-            message="برای مشاهده آمار، اولین تراکنش خود را ثبت کنید."
-          /> 
-        </div>
-      </div>
-    );
-  }
+  const hasMonthlyData = monthlyData.length > 0;
 
   return (
     <div className="dashboard-container">
-      {/* totall data */}
-      <div className="summary-section">
-        <SummarySection
-          totalIncome={totalIncome}
-          totalExpense={totalExpense}
-          balance={balance}
+      {/* filter & sort part */}
+      {hasTransactions && (
+        <CompactFilterBar
+          filters={filters}
+          onFilterChange={updateFilters}
+          sortBy={sortBy}
+          onSortChange={updateSortBy}
         />
-      </div>
+      )}
 
-      {/* totall chart */}
-      <div className="charts-section">
-        <ExpensePieChart
-          totalIncome={totalIncome}
-          totalExpense={totalExpense}
-        />
-      </div>
+      {!hasTransactions ? (
+        <div className="dashboard-empty-state">
+          <EmptyState message="برای مشاهده آمار، اولین تراکنش خود را ثبت کنید." />
+        </div>
+      ) : !hasFilteredData ? (
+        <div className="dashboard-empty-state">
+          <EmptyState message="هیچ تراکنشی با فیلترهای انتخابی یافت نشد." />
+        </div>
+      ) : (
+        <>
+          {/* totall data */}
+          <div className="summary-section">
+            <SummarySection
+              totalIncome={totalIncome}
+              totalExpense={totalExpense}
+              balance={balance}
+            />
+          </div>
 
-      {/* monthly data */}
-      <div className="monthly-data-section">
-        <MonthlyDataSection monthlyData={monthlyData} />
-      </div>
+          {/* totall chart */}
+          <div className="charts-section">
+            <ExpensePieChart
+              totalIncome={totalIncome}
+              totalExpense={totalExpense}
+            />
+          </div>
 
-      {/* monthly chart */}
-      <div className="charts-section">
-        <MonthlyBarChart data={monthlyData} />
-      </div>
+          {hasMonthlyData && (
+            <div className="monthly-data-section">
+              <MonthlyDataSection monthlyData={monthlyData} />
+            </div>
+          )}
+
+          {hasMonthlyData && (
+            <div className="charts-section">
+              <MonthlyBarChart data={monthlyData} />
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
