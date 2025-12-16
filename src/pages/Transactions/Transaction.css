@@ -64,6 +64,11 @@
   align-items: center;
 }
 
+.transaction-container .compact-filter-bar {
+  padding: 0 !important;
+  margin-bottom: 16px !important;
+}
+
 .app-main {
   width: 100%;
   max-width: 768px;
@@ -208,13 +213,13 @@
 
 @media (max-width: 480px) {
   .transaction-container {
-    max-width: 380px;
+    /* max-width: 380px; */
+    max-width: 90vw;
     margin: 16px;
     min-height: 875px;
   }
 
   .app-header {
-    max-width: 332px;
     gap: 12px;
   }
 
@@ -224,7 +229,7 @@
   }
 
   .app-header .add-transaction-btn {
-    padding: 4px 10px;
+    padding: 4px 14px;
   }
 
   .app-header .add-transaction-btn .add-text {
@@ -247,7 +252,6 @@
   .mobile-view {
     display: block;
     width: 100%;
-    max-width: 332px;
   }
 
   /* mobile style */

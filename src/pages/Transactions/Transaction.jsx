@@ -4,22 +4,46 @@ import TransactionTable from './Components/TransactionTable/TransactionTable';
 import TransactionCard from './Components/TransactionCard/TransactionCard';
 import TransactionModal from './Components/Modal/TransactionModal';
 import TransactionHeader from './Components/TransactionHeader/TransactionHeader';
+import CompactFilterBar from '../../components/CompactFilterBar/CompactFilterBar';
 import EmptyState from '../../components/EmptyState/EmptyState';
 import './Transaction.css';
 
 const Transaction = () => {
-  const { transactions, modalState } = useApp();
+  const {
+    transactions,
+    filteredTransactions,
+    modalState,
+    filters,
+    sortBy,
+    updateFilters,
+    updateSortBy,
+  } = useApp();
 
   const hasTransactions = transactions.length > 0;
+  const hasFilteredResults = filteredTransactions.length > 0;
 
   return (
     <div className="transaction-container">
       <TransactionHeader />
 
+      {/* filter & sort part */}
+      {hasTransactions && (
+        <CompactFilterBar
+          filters={filters}
+          onFilterChange={updateFilters}
+          sortBy={sortBy}
+          onSortChange={updateSortBy}
+        />
+      )}
+
       <main className="app-main">
         {!hasTransactions ? (
           <div className="transaction-empty-state">
             <EmptyState message="شما هنوز تراکنشی وارد نکرده‌اید." />
+          </div>
+        ) : !hasFilteredResults ? (
+          <div className="transaction-empty-state">
+            <EmptyState message="هیچ تراکنشی با فیلترهای انتخابی یافت نشد." />
           </div>
         ) : (
           <>
@@ -27,7 +51,7 @@ const Transaction = () => {
               <TransactionTable />
             </div>
             <div className="mobile-view">
-              {transactions.map(transaction => (
+              {filteredTransactions.map(transaction => (
                 <TransactionCard
                   key={transaction.id}
                   transactionId={transaction.id}
@@ -38,9 +62,7 @@ const Transaction = () => {
         )}
       </main>
 
-      {modalState.isOpen && (
-        <TransactionModal />
-      )}
+      {modalState.isOpen && <TransactionModal />}
     </div>
   );
 };
