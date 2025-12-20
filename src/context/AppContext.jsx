@@ -1,10 +1,11 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useMemo,
   useState,
-  useCallback,
 } from 'react';
+
 import useFetch from '../hooks/useFetch';
 
 // context part
@@ -26,6 +27,11 @@ export const AppProvider = ({ children }) => {
 
   const [sortBy, setSortBy] = useState('date-desc');
 
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    itemsPerPage: 10,
+  });
+
   // without filter
   const sortedTransactions = useMemo(() => {
     return [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -37,13 +43,17 @@ export const AppProvider = ({ children }) => {
       if (filters.startDate && transaction.date) {
         const transactionDate = new Date(transaction.date);
         const startDate = new Date(filters.startDate);
-        if (transactionDate < startDate) return false;
+        if (transactionDate < startDate) {
+          return false;
+        }
       }
 
       if (filters.endDate && transaction.date) {
         const transactionDate = new Date(transaction.date);
         const endDate = new Date(filters.endDate);
-        if (transactionDate > endDate) return false;
+        if (transactionDate > endDate) {
+          return false;
+        }
       }
 
       return true;
@@ -96,6 +106,28 @@ export const AppProvider = ({ children }) => {
     sortTransactions,
   ]);
 
+  const paginatedTransactions = useMemo(() => {
+    const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
+    const endIndex = startIndex + pagination.itemsPerPage;
+    return filteredAndSortedTransactions.slice(startIndex, endIndex);
+  }, [filteredAndSortedTransactions, pagination]);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(
+      filteredAndSortedTransactions.length / pagination.itemsPerPage
+    );
+  }, [filteredAndSortedTransactions, pagination.itemsPerPage]);
+
+  const changePage = pageNumber => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setPagination(prev => ({
+        ...prev,
+        currentPage: pageNumber,
+      }));
+    }
+  };
+
   // CRUD operations
   const addTransaction = transactionData =>
     fetcher({
@@ -141,10 +173,12 @@ export const AppProvider = ({ children }) => {
 
   const updateFilters = newFilters => {
     setFilters(newFilters);
+    setPagination(prev => ({ ...prev, currentPage: 1 }));
   };
 
   const updateSortBy = newSortBy => {
     setSortBy(newSortBy);
+    setPagination(prev => ({ ...prev, currentPage: 1 }));
   };
 
   const value = useMemo(
@@ -152,6 +186,12 @@ export const AppProvider = ({ children }) => {
       // data
       transactions: sortedTransactions,
       filteredTransactions: filteredAndSortedTransactions,
+      
+      // pagination
+      paginatedTransactions,
+      pagination,
+      totalPages,
+      changePage,
 
       // filter & sort
       filters,
@@ -180,6 +220,9 @@ export const AppProvider = ({ children }) => {
     [
       sortedTransactions,
       filteredAndSortedTransactions,
+      paginatedTransactions,
+      pagination,
+      totalPages,
       filters,
       sortBy,
       loading,

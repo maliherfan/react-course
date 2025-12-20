@@ -1,4 +1,4 @@
-import { useReducer, useCallback, useEffect } from 'react';
+import { useCallback, useEffect,useReducer } from 'react';
 
 const initialState = {
   data: [],
@@ -104,7 +104,7 @@ export function useFetch(initialUrl) {
   );
 
   useEffect(() => {
-    if (initialUrl) fetcher({ method: 'GET' });
+    if (initialUrl) {fetcher({ method: 'GET' });}
   }, []);
 
   useEffect(() => {

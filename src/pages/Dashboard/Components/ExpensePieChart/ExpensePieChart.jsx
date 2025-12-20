@@ -1,5 +1,5 @@
-import React from 'react';
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer,Tooltip } from 'recharts';
+
 import './ExpensePieChart.css';
 
 const ExpensePieChart = ({ totalIncome, totalExpense }) => {

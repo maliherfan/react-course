@@ -1,10 +1,11 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Navigate,Route, Routes } from 'react-router-dom';
+
 import { AppProvider } from './context/AppContext';
 import Layout from './layout/Layout';
 import Dashboard from './pages/Dashboard/Dashboard';
-import Transaction from './pages/Transactions/Transaction';
 import NotFound from './pages/NotFound/NotFound';
+import Transaction from './pages/Transactions/Transaction';
+
 import './App.css';
 
 function App() {

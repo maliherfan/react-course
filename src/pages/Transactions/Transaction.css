@@ -65,24 +65,29 @@
 }
 
 .transaction-container .compact-filter-bar {
-  padding: 0 !important;
-  margin-bottom: 16px !important;
+  padding: 0px;
+  margin-bottom: 0px;
 }
 
 .app-main {
   width: 100%;
   max-width: 768px;
   min-height: 676px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .desktop-view {
   display: block;
   width: 100%;
   max-width: 768px;
+  flex: 1;
 }
 
 .mobile-view {
   display: none;
+  flex: 1;
 }
 
 .transaction-empty-state {

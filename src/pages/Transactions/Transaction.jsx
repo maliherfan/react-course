@@ -1,11 +1,13 @@
-import React from 'react';
-import { useApp } from '../../context/AppContext';
-import TransactionTable from './Components/TransactionTable/TransactionTable';
-import TransactionCard from './Components/TransactionCard/TransactionCard';
-import TransactionModal from './Components/Modal/TransactionModal';
-import TransactionHeader from './Components/TransactionHeader/TransactionHeader';
 import CompactFilterBar from '../../components/CompactFilterBar/CompactFilterBar';
 import EmptyState from '../../components/EmptyState/EmptyState';
+import Pagination from './Components/Pagination/Pagination';
+import { useApp } from '../../context/AppContext';
+
+import TransactionModal from './Components/Modal/TransactionModal';
+import TransactionCard from './Components/TransactionCard/TransactionCard';
+import TransactionHeader from './Components/TransactionHeader/TransactionHeader';
+import TransactionTable from './Components/TransactionTable/TransactionTable';
+
 import './Transaction.css';
 
 const Transaction = () => {
@@ -58,6 +60,7 @@ const Transaction = () => {
                 />
               ))}
             </div>
+            <Pagination />
           </>
         )}
       </main>

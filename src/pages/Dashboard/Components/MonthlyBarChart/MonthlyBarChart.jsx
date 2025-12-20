@@ -1,13 +1,13 @@
-import React from 'react';
 import {
-  BarChart,
   Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
+  BarChart,
   Legend,
   ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts';
+
 import './MonthlyBarChart.css';
 
 const MonthlyBarChart = ({ data }) => {
