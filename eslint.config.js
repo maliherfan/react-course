@@ -7,21 +7,8 @@ import importPlugin from 'eslint-plugin-import';
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
-  // ===== تنظیمات پایه =====
   js.configs.recommended,
   
-  // ===== تنظیمات React =====
-  {
-    ...reactPlugin.configs.flat.recommended,
-    files: ['**/*.{js,jsx}'],
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-  },
-  
-  // ===== تنظیمات اختصاصی پروژه =====
   {
     files: ['**/*.{js,jsx}'],
     
@@ -30,7 +17,6 @@ export default [
       sourceType: 'module',
       globals: {
         ...globals.browser,
-        ...globals.node,
       },
       parserOptions: {
         ecmaFeatures: {
@@ -53,13 +39,11 @@ export default [
     },
 
     rules: {
-      // ===== React Rules =====
+      // React
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
-      'react/jsx-uses-react': 'off',
-      'react/jsx-uses-vars': 'error', // این rule مهم است!
       
-      // ===== React Hooks =====
+      // Hooks
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': [
         'warn',
@@ -69,28 +53,20 @@ export default [
         }
       ],
       
-      // ===== React Refresh =====
+      // Refresh
       'react-refresh/only-export-components': 'off',
       
-      // ===== Import/Export Rules =====
+      // Import
       'import/no-unresolved': 'off',
       'import/no-duplicates': 'error',
       'import/order': [
         'warn',
         {
-          'groups': [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index'
-          ],
+          'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
           'newlines-between': 'always',
         }
       ],
       
-      // ===== General Rules =====
       'no-unused-vars': [
         'warn',
         {
@@ -100,16 +76,12 @@ export default [
           varsIgnorePattern: '^_',
           caughtErrorsIgnorePattern: '^_',
           ignoreRestSiblings: true,
-          // 🔴 این تنظیمات مهم هستند:
-          varsIgnorePattern: '^(BrowserRouter|Navigate|Route|Routes|Link|Outlet|StrictMode|Cell|Legend|Pie|PieChart|ResponsiveContainer|Tooltip|Bar|BarChart|XAxis|YAxis)$',
-          argsIgnorePattern: '^_',
-          caughtErrorsIgnorePattern: '^_',
+
+          varsIgnorePattern: '^(_|BrowserRouter|Navigate|Route|Routes|Link|Outlet|StrictMode|Cell|Legend|Pie|PieChart|ResponsiveContainer|Tooltip|Bar|BarChart|XAxis|YAxis|DatePicker|AppProvider|Layout|Dashboard|NotFound|Transaction|ProductHeader|App|CompactFilterBar|EmptyState|ExpensePieChart|MonthlyBarChart|MonthlyDataSection|SummarySection|TransactionForm|TransactionModal|TransactionCard|TransactionHeader|TransactionTable|Pagination)$',
         },
       ],
       
-      'no-console': ['warn', { 
-        allow: ['warn', 'error', 'info'] 
-      }],
+      'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
       'no-debugger': 'warn',
       'no-undef': 'error',
       'eqeqeq': ['error', 'always'],
@@ -119,23 +91,16 @@ export default [
       'no-alert': 'off',
       'no-eval': 'error',
       'no-unused-expressions': 'error',
-      'arrow-body-style': 'off',
-      'prefer-arrow-callback': 'warn',
     },
   },
   
-  // ===== تنظیمات برای context و hooks =====
   {
-    files: [
-      'src/context/**/*.jsx',
-      'src/hooks/**/*.js',
-    ],
+    files: ['src/context/**/*.jsx', 'src/hooks/**/*.js'],
     rules: {
       'react-hooks/exhaustive-deps': 'off',
     },
   },
   
-  // ===== نادیده گرفتن فایل‌ها =====
   {
     ignores: [
       'dist/**',
@@ -143,9 +108,7 @@ export default [
       'node_modules/**',
       '*.config.js',
       '*.config.mjs',
-      'coverage/**',
       'public/**',
-      '.vscode/**',
       '.git/**',
       'db.json',
       '*.log',

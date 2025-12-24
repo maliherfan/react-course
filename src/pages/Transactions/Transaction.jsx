@@ -1,8 +1,8 @@
 import CompactFilterBar from '../../components/CompactFilterBar/CompactFilterBar';
 import EmptyState from '../../components/EmptyState/EmptyState';
-import Pagination from './Components/Pagination/Pagination';
 import { useApp } from '../../context/AppContext';
 
+import Pagination from './Components/Pagination/Pagination';
 import TransactionModal from './Components/Modal/TransactionModal';
 import TransactionCard from './Components/TransactionCard/TransactionCard';
 import TransactionHeader from './Components/TransactionHeader/TransactionHeader';
