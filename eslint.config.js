@@ -1,29 +1,118 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import importPlugin from 'eslint-plugin-import';
 
-export default defineConfig([
-  globalIgnores(['dist']),
+/** @type {import('eslint').Linter.FlatConfig[]} */
+export default [
+  js.configs.recommended,
+  
   {
     files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
+    
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+      },
       parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
+
+    plugins: {
+      'react': reactPlugin,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+      'import': importPlugin,
+    },
+
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // React
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+      
+      // Hooks
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': [
+        'warn',
+        {
+          'additionalHooks': '(useMemo|useCallback)',
+          'enableDangerousAutofixThisMayCauseInfiniteLoops': false,
+        }
+      ],
+      
+      // Refresh
+      'react-refresh/only-export-components': 'off',
+      
+      // Import
+      'import/no-unresolved': 'off',
+      'import/no-duplicates': 'error',
+      'import/order': [
+        'warn',
+        {
+          'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          'newlines-between': 'always',
+        }
+      ],
+      
+      'no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+
+          varsIgnorePattern: '^(_|BrowserRouter|Navigate|Route|Routes|Link|Outlet|StrictMode|Cell|Legend|Pie|PieChart|ResponsiveContainer|Tooltip|Bar|BarChart|XAxis|YAxis|DatePicker|AppProvider|Layout|Dashboard|NotFound|Transaction|ProductHeader|App|CompactFilterBar|EmptyState|ExpensePieChart|MonthlyBarChart|MonthlyDataSection|SummarySection|TransactionForm|TransactionModal|TransactionCard|TransactionHeader|TransactionTable|Pagination)$',
+        },
+      ],
+      
+      'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
+      'no-debugger': 'warn',
+      'no-undef': 'error',
+      'eqeqeq': ['error', 'always'],
+      'curly': ['error', 'all'],
+      'prefer-const': 'warn',
+      'no-var': 'warn',
+      'no-alert': 'off',
+      'no-eval': 'error',
+      'no-unused-expressions': 'error',
     },
   },
-])
+  
+  {
+    files: ['src/context/**/*.jsx', 'src/hooks/**/*.js'],
+    rules: {
+      'react-hooks/exhaustive-deps': 'off',
+    },
+  },
+  
+  {
+    ignores: [
+      'dist/**',
+      'build/**',
+      'node_modules/**',
+      '*.config.js',
+      '*.config.mjs',
+      'public/**',
+      '.git/**',
+      'db.json',
+      '*.log',
+      '.env*',
+    ],
+  },
+];

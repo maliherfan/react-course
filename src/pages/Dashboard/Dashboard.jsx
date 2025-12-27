@@ -1,11 +1,14 @@
-import React, { useMemo } from 'react';
-import { useApp } from '../../context/AppContext';
-import MonthlyBarChart from './Components/MonthlyBarChart/MonthlyBarChart';
-import ExpensePieChart from './Components/ExpensePieChart/ExpensePieChart';
-import SummarySection from './Components/SummarySection/SummarySection';
-import MonthlyDataSection from './Components/MonthlyDataSection/MonthlyDataSection';
+import { useMemo } from 'react';
+
 import CompactFilterBar from '../../components/CompactFilterBar/CompactFilterBar';
 import EmptyState from '../../components/EmptyState/EmptyState';
+import { useApp } from '../../context/AppContext';
+
+import ExpensePieChart from './Components/ExpensePieChart/ExpensePieChart';
+import MonthlyBarChart from './Components/MonthlyBarChart/MonthlyBarChart';
+import MonthlyDataSection from './Components/MonthlyDataSection/MonthlyDataSection';
+import SummarySection from './Components/SummarySection/SummarySection';
+
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -40,7 +43,7 @@ const Dashboard = () => {
     ];
 
     filteredTransactions.forEach(transaction => {
-      if (!transaction.date) return;
+      if (!transaction.date) {return;}
 
       if (
         transaction.income &&
@@ -84,7 +87,7 @@ const Dashboard = () => {
     });
 
     const sortedMonths = Object.values(monthlySums).sort((a, b) => {
-      if (a.year !== b.year) return a.year - b.year;
+      if (a.year !== b.year) {return a.year - b.year;}
       return a.month - b.month;
     });
 
@@ -97,8 +100,6 @@ const Dashboard = () => {
       monthlyData: recentMonths,
     };
   }, [filteredTransactions]);
-
-  const hasMonthlyData = monthlyData.length > 0;
 
   return (
     <div className="dashboard-container">

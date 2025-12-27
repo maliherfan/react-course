@@ -6,11 +6,9 @@
 
 .dashboard-empty-state {
   margin: 0 auto;
-  padding: 80px 20px;
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 0px;
 }
 
 /* totall expense report */

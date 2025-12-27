@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SummarySection = ({ totalIncome, totalExpense, balance }) => {
   return (
     <>

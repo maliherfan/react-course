@@ -1,11 +1,11 @@
-import React from 'react';
 import { useApp } from '../../../../context/AppContext';
+
 import '../../Transaction.css';
 
 const TransactionCard = ({ transactionId }) => {
-  const { filteredTransactions, openEditModal, openDeleteModal } = useApp();
+  const { paginatedTransactions, openEditModal, openDeleteModal } = useApp();
 
-  const transaction = filteredTransactions.find(t => t.id === transactionId);
+  const transaction = paginatedTransactions.find(t => t.id === transactionId);
 
   if (!transaction) {
     return null;

@@ -1,6 +1,7 @@
-import React from 'react';
 import { useApp } from '../../../../context/AppContext';
+
 import TransactionForm from './Form/TransactionForm';
+
 import './TransactionModal.css';
 
 const TransactionModal = () => {

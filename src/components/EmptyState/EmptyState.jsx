@@ -1,5 +1,4 @@
-import React from 'react';
-import './EmptyState.css'
+import './EmptyState.css';
 
 const EmptyState = ({ message = 'شما هنوز تراکنشی وارد نکرده‌اید.' }) => {
   return (
