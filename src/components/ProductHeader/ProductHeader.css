@@ -1,15 +1,38 @@
 .product-header {
   background: #ffffff;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
-  position: fixed; 
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
   height: 64px;
   padding: 0px 40px;
   z-index: 1000;
+}
+
+.logout-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  order: 1;
+}
+
+.logout-icon-btn:focus {
+  outline: none;
+}
+
+.header-right-section {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .logo-section {

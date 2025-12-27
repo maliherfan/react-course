@@ -50,13 +50,6 @@
       "description": "خرید کتاب"
     },
     {
-      "id": "d868",
-      "date": "1404/09/24",
-      "income": "4000000",
-      "outcome": "",
-      "description": "پروژه3"
-    },
-    {
       "id": "c570",
       "date": "1404/09/03",
       "income": "",
@@ -76,6 +69,23 @@
       "income": "",
       "outcome": "200000",
       "description": "سوپرمارکت"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "malihe.erfanmanesh@gmail.com",
+      "password": "justbest"
+    },
+    {
+      "id": 2,
+      "email": "user2@example.com",
+      "password": "654321"
+    },
+    {
+      "id": 3,
+      "email": "admin@example.com",
+      "password": "admin123"
     }
   ]
 }
