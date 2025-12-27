@@ -1,10 +1,13 @@
 import {
   createContext,
   useContext,
+  useMemo,
   useState,
   useEffect,
   useCallback,
 } from 'react';
+
+import './AuthContext.css';
 
 const AuthContext = createContext();
 
@@ -22,11 +25,11 @@ export const AuthProvider = ({ children }) => {
 
   // check login status from localstorage
   useEffect(() => {
-    const savedAuth = localStorage.getItem('isAuthenticated');
-    if (savedAuth === 'true') {
-      setIsAuthenticated(true);
-    }
-    setLoading(false);
+    setTimeout(() => {
+      const savedAuth = localStorage.getItem('isAuthenticated');
+      if (savedAuth === 'true') setIsAuthenticated(true);
+      setLoading(false);
+    }, 1000);
   }, []);
 
   // login with json-server
@@ -68,12 +71,25 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   }, []);
 
-  const value = {
-    isAuthenticated,
-    loading,
-    login,
-    logout,
-  };
+  const value = useMemo(
+    () => ({
+      isAuthenticated,
+      loading,
+      login,
+      logout,
+    }),
+    [isAuthenticated, loading]
+  );
+
+  if (loading) {
+    return (
+      <div className="auth-loading-container">
+        <div className="auth-loading-spinner"></div>
+        <p className="auth-loading-text">در حال بررسی وضعیت ورود...</p>
+        <p className="auth-loading-subtext">لطفاً چند لحظه صبر کنید</p>
+      </div>
+    );
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

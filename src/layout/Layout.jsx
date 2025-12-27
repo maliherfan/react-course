@@ -6,15 +6,8 @@ import ProductHeader from '../components/ProductHeader/ProductHeader';
 import './Layout.css';
 
 const Layout = () => {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-      </div>
-    );
-  }
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
