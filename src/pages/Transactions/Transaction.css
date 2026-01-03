@@ -1,3 +1,7 @@
+* {
+  font-family: 'vazirmatn', 'Tahoma', 'Arial', 'sans-serif';
+}
+
 .transaction-container {
   width: 90vw;
   max-width: 790px;
@@ -11,57 +15,6 @@
   padding: 36px 24px;
   border-radius: 16px;
   background-color: #ffffff;
-}
-
-.app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 768px;
-  width: 100%;
-  gap: 24px;
-  height: 48px;
-}
-
-.app-header h1 {
-  max-width: 545px;
-  height: 31px;
-  line-height: 31px;
-  font-weight: 600;
-  font-size: 20px;
-  text-align: right;
-  color: #242d35;
-}
-
-.app-header .add-transaction-btn {
-  max-width: 199px;
-  height: 48px;
-  background: #0e33f3;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 4px 24px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.app-header .add-transaction-btn:focus {
-  outline: none;
-}
-
-.add-transaction-btn .add-text {
-  max-width: 117px;
-  height: 31px;
-  font-weight: 400;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .transaction-container .compact-filter-bar {
@@ -93,48 +46,6 @@
 .transaction-empty-state {
   max-width: 768px;
   min-height: 400px;
-}
-
-.transaction-table {
-  width: 100%;
-  max-width: 768px;
-  border-collapse: collapse;
-  text-align: right;
-}
-
-.transaction-table th {
-  padding: 16px;
-  border-bottom: 1px solid #a0ccf8;
-  font-weight: 500;
-  color: #6b7580;
-}
-
-.transaction-table td {
-  padding: 14px 16px;
-  font-weight: 400;
-  font-size: 16px;
-}
-
-.income {
-  color: #3ebd93;
-  font-weight: bold;
-  direction: ltr;
-}
-
-.outcome {
-  color: #ef4e4e;
-  font-weight: bold;
-  direction: ltr;
-}
-
-.delete-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: all 0.2s;
 }
 
 .dropdown {
@@ -196,19 +107,22 @@
   outline: none;
 }
 
+.income {
+  color: #3ebd93;
+  font-weight: bold;
+  direction: ltr;
+}
+
+.outcome {
+  color: #ef4e4e;
+  font-weight: bold;
+  direction: ltr;
+}
+
 @media (max-width: 768px) {
   .transaction-container {
     width: 90vw;
     min-height: 875px;
-  }
-
-  .transaction-table {
-    font-size: 14px;
-  }
-
-  .transaction-table th,
-  .transaction-table td {
-    padding: 12px 8px;
   }
 
   .transaction-empty-state {
@@ -218,27 +132,9 @@
 
 @media (max-width: 480px) {
   .transaction-container {
-    /* max-width: 380px; */
     max-width: 90vw;
     margin: 16px;
     min-height: 875px;
-  }
-
-  .app-header {
-    gap: 12px;
-  }
-
-  .app-header h1 {
-    max-width: 109px;
-    font-size: 18px;
-  }
-
-  .app-header .add-transaction-btn {
-    padding: 4px 14px;
-  }
-
-  .app-header .add-transaction-btn .add-text {
-    font-size: 16px;
   }
 
   .app-main {
@@ -257,33 +153,6 @@
   .mobile-view {
     display: block;
     width: 100%;
-  }
-
-  /* mobile style */
-  .mobile-view .transaction-card {
-    width: 100%;
-    background-color: #fbfbfc;
-    border-radius: 8px;
-    padding: 14px 16px;
-    margin-bottom: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .mobile-view .card-body {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 50px;
-    color: #242d35;
-    font-weight: 500;
-  }
-
-  .mobile-view .card-description-action {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 
   .dropdown-menu {

@@ -1,11 +1,18 @@
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer,Tooltip } from 'recharts';
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from 'recharts';
 
 import './ExpensePieChart.css';
 
 const ExpensePieChart = ({ totalIncome, totalExpense }) => {
   const data = [
     { name: 'درآمد', value: totalIncome, color: '#3ebda0' },
-    { name: 'هزینه', value: totalExpense, color: '#ef4e4e' }
+    { name: 'هزینه', value: totalExpense, color: '#ef4e4e' },
   ];
 
   if (totalIncome === 0 && totalExpense === 0) {
@@ -38,8 +45,11 @@ const ExpensePieChart = ({ totalIncome, totalExpense }) => {
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
           </Pie>
-          <Tooltip 
-            formatter={(value) => [`${value.toLocaleString('fa-IR')} تومان (${(value/(totalIncome+totalExpense)*100).toFixed(2)}%)`, 'مقدار']}
+          <Tooltip
+            formatter={(value) => [
+              `${value.toLocaleString('fa-IR')} تومان (${(value / (totalIncome + totalExpense) * 100).toFixed(2)}%)`,
+              'مقدار',
+            ]}
           />
           <Legend />
         </PieChart>

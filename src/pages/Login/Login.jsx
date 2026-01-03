@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
 import { useAuth } from '../../context/AuthContext';
+
 import './Login.css';
 
 const Login = () => {
@@ -20,7 +22,7 @@ const Login = () => {
     }
   }, [isAuthenticated, navigate, location]);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
@@ -53,7 +55,7 @@ const Login = () => {
     <div className="login-container">
       <div className="login-header">
         <img
-          src="/public/icons/login-logo.svg"
+          src="/icons/login-logo.svg"
           alt="لوگو جیب تو"
           className="logo-icon"
           width="46"
@@ -73,7 +75,7 @@ const Login = () => {
             type="email"
             id="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             disabled={isLoading}
             required
           />
@@ -85,7 +87,7 @@ const Login = () => {
             type="password"
             id="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
             required
           />

@@ -21,18 +21,16 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
 
-  // check login status from localstorage
   useEffect(() => {
     setTimeout(() => {
-      const savedAuth = localStorage.getItem('isAuthenticated');
-      if (savedAuth === 'true') setIsAuthenticated(true);
-      setLoading(false);
+      const savedAuth = localStorage.getItem('isAuthenticated') === 'true';
+      setIsAuthenticated(savedAuth);
+      setAuthLoading(false);
     }, 1000);
   }, []);
 
-  // login with json-server
   const login = useCallback(async (email, password) => {
     try {
       const response = await fetch('http://localhost:3001/users');
@@ -43,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
       const users = await response.json();
       const foundUser = users.find(
-        user => user.email === email && user.password === password
+        (user) => user.email === email && user.password === password
       );
 
       if (foundUser) {
@@ -65,28 +63,25 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // logout
   const logout = useCallback(() => {
     localStorage.removeItem('isAuthenticated');
-    setIsAuthenticated(false);
+    window.location.href = '/login';
   }, []);
 
   const value = useMemo(
     () => ({
       isAuthenticated,
-      loading,
+      authLoading,
       login,
       logout,
     }),
-    [isAuthenticated, loading]
+    [isAuthenticated, authLoading, login, logout]
   );
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="auth-loading-container">
         <div className="auth-loading-spinner"></div>
-        <p className="auth-loading-text">در حال بررسی وضعیت ورود...</p>
-        <p className="auth-loading-subtext">لطفاً چند لحظه صبر کنید</p>
       </div>
     );
   }

@@ -1,0 +1,74 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 768px;
+  width: 100%;
+  gap: 24px;
+  height: 48px;
+}
+
+.app-header h1 {
+  max-width: 545px;
+  height: 31px;
+  line-height: 31px;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: right;
+  color: #242d35;
+}
+
+.app-header .add-transaction-btn {
+  max-width: 199px;
+  height: 48px;
+  background: #0e33f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s;
+}
+
+.app-header .add-transaction-btn:hover {
+  background: #0d2bc9;
+}
+
+.app-header .add-transaction-btn:focus {
+  outline: none;
+}
+
+.add-transaction-btn .add-text {
+  max-width: 117px;
+  height: 31px;
+  font-weight: 400;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    gap: 12px;
+  }
+
+  .app-header h1 {
+    max-width: 109px;
+    font-size: 18px;
+  }
+
+  .app-header .add-transaction-btn {
+    padding: 4px 14px;
+  }
+
+  .app-header .add-transaction-btn .add-text {
+    font-size: 16px;
+  }
+}

@@ -147,6 +147,7 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 400;
+  font-family: 'vazirmatn', 'Tahoma', 'Arial', 'sans-serif';
 }
 
 .btn-submit {
@@ -162,6 +163,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  font-family: 'vazirmatn', 'Tahoma', 'Arial', 'sans-serif';
 }
 
 .form-error-message {

@@ -14,6 +14,7 @@ const Transaction = () => {
   const {
     transactions,
     filteredTransactions,
+    paginatedTransactions,
     modalState,
     filters,
     sortBy,
@@ -28,7 +29,6 @@ const Transaction = () => {
     <div className="transaction-container">
       <TransactionHeader />
 
-      {/* filter & sort part */}
       {hasTransactions && (
         <CompactFilterBar
           filters={filters}
@@ -53,7 +53,7 @@ const Transaction = () => {
               <TransactionTable />
             </div>
             <div className="mobile-view">
-              {filteredTransactions.map(transaction => (
+              {paginatedTransactions.map((transaction) => (
                 <TransactionCard
                   key={transaction.id}
                   transactionId={transaction.id}

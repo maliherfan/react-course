@@ -42,8 +42,10 @@ const Dashboard = () => {
       'اسفند',
     ];
 
-    filteredTransactions.forEach(transaction => {
-      if (!transaction.date) {return;}
+    filteredTransactions.forEach((transaction) => {
+      if (!transaction.date) {
+        return;
+      }
 
       if (
         transaction.income &&
@@ -87,7 +89,9 @@ const Dashboard = () => {
     });
 
     const sortedMonths = Object.values(monthlySums).sort((a, b) => {
-      if (a.year !== b.year) {return a.year - b.year;}
+      if (a.year !== b.year) {
+        return a.year - b.year;
+      }
       return a.month - b.month;
     });
 

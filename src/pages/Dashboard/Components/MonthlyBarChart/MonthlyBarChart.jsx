@@ -8,8 +8,6 @@ import {
   YAxis,
 } from 'recharts';
 
-import './MonthlyBarChart.css';
-
 const MonthlyBarChart = ({ data }) => {
   if (!data || data.length === 0) {
     return (
@@ -36,12 +34,22 @@ const MonthlyBarChart = ({ data }) => {
           />
           <YAxis tick={{ fontSize: 12 }} textAnchor="start" />
           <Tooltip
-            formatter={value => value.toLocaleString('fa-IR') + ' تومان'}
-            labelFormatter={label => `ماه: ${label}`}
+            formatter={(value) => value.toLocaleString('fa-IR') + ' تومان'}
+            labelFormatter={(label) => `ماه: ${label}`}
           />
           <Legend />
-          <Bar dataKey="income" name="درآمد" fill="#3ebda0" radius={[4, 4, 0, 0]}/>
-          <Bar dataKey="expense" name="هزینه" fill="#ef4e4e" radius={[4, 4, 0, 0]}/>
+          <Bar
+            dataKey="income"
+            name="درآمد"
+            fill="#3ebda0"
+            radius={[4, 4, 0, 0]}
+          />
+          <Bar
+            dataKey="expense"
+            name="هزینه"
+            fill="#ef4e4e"
+            radius={[4, 4, 0, 0]}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>
