@@ -1,16 +1,90 @@
-# React + Vite
+# پنل مدیریت هزینه (Expense Manager)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 هدف پروژه
+یک سیستم مدیریت مالی شخصی و کاربردی برای ردیابی درآمدها و هزینه‌ها. این پروژه در قالب یک دوره کارآموزی ۱۲ هفته‌ای React.js توسعه یافته و تمام مراحل توسعه یک محصول واقعی از صفر تا صد را شبیه‌سازی می‌کند.
 
-Currently, two official plugins are available:
+## ✨ ویژگی‌های اصلی
+✅ ثبت و مدیریت تراکنش‌های مالی (درآمد/هزینه)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✅ داشبورد تعاملی با نمودارهای مختلف
 
-## React Compiler
+✅ سیستم فیلتر و مرتب‌سازی پیشرفته
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+✅ احراز هویت و مسیرهای محافظت‌شده
 
-## Expanding the ESLint configuration
+✅ طراحی کاملاً واکنش‌گرا (موبایل و دسکتاپ)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✅ ارتباط با API واقعی (json-server)
+
+✅ مدیریت State با Context API و Custom Hooks
+
+## 🚀 نحوه اجرا
+
+1. `npm install`
+2. `npm run dev:all` (همزمان فرانت‌اند و سرور)
+3. `npm run dev` فرانت‌اند (localhost:5173)
+4. `npm run server` API سرور (localhost:3001)
+
+## 🏗️ ساختار پروژه
+
+- `src/pages/`: صفحات اصلی
+- `src/components/`: کامپوننت‌های قابل استفاده مجدد
+- `src/context/`: مدیریت state سراسری
+- `src/hooks/`: هوک‌های اختصاصی
+- `src/utils/`: ابزارهای کمکی
+
+## 🗃️ ساختار داده‌ها
+
+{
+  "transactions": [
+    {
+      "id": "1",
+      "date": "1403/09/15",
+      "income": "500000",
+      "outcome": "",
+      "description": "حقوق ماهانه"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "user@example.com",
+      "password": "password123"
+    }
+  ]
+}
+
+## 📸 اسکرین‌شات‌ها
+
+### 🏠 صفحات اصلی
+![Login](public/screenshots/login.png)
+*صفحه ورود*
+
+![Dashboard](public/screenshots/dashboard.png)
+*داشبورد با نمودارهای تعاملی*
+
+![Transaction](public/screenshots/transaction-list.png)
+*لیست تراکنش‌ها*
+
+### 🔧 عملیات CRUD
+![Add Transaction](public/screenshots/add.png)
+*افزودن تراکنش جدید*
+
+![Edit Transaction](public/screenshots/edit.png)
+*ویرایش تراکنش*
+
+![Delete Transaction](public/screenshots/delete.png)
+*حذف تراکنش*
+
+### ⚠️ صفحات سیستمی
+![Notfound](public/screenshots/notfound.png)
+*صفحه ۴۰۴*
+
+## 🔧 تکنولوژی‌ها
+
+- React 19
+- React Router(مسیریابی)
+- Context API(مدیریت وضعیت)
+- Recharts(نمودارها)
+- Vite
+- json-server

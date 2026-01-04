@@ -1,10 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
+import { useAuth } from '../context/AuthContext';
 import ProductHeader from '../components/ProductHeader/ProductHeader';
 
 import './Layout.css';
 
 const Layout = () => {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
   return (
     <div className="layout">
       <header className="layout-header">

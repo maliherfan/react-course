@@ -1,3 +1,4 @@
+
 const SummarySection = ({ totalIncome, totalExpense, balance }) => {
   return (
     <>

@@ -1,0 +1,34 @@
+.transaction-card {
+  width: 100%;
+  background-color: #fbfbfc;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.transaction-card .card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  color: #242d35;
+  font-weight: 500;
+}
+
+.transaction-card .card-description-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.transaction-card .transaction-date {
+  font-size: 14px;
+}
+
+.transaction-card .transaction-amount {
+  font-size: 16px;
+  font-weight: 600;
+}

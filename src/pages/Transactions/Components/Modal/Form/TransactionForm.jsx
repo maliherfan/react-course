@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import DatePicker from 'react-multi-date-picker';
@@ -49,7 +49,7 @@ const TransactionForm = () => {
     }
   }, [modalType, transaction]);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.date || !formData.amount || !formData.description) {
@@ -76,16 +76,16 @@ const TransactionForm = () => {
     }
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleDateChange = value => {
-    setFormData(prev => ({
+  const handleDateChange = (value) => {
+    setFormData((prev) => ({
       ...prev,
       date: value?.format?.('YYYY/MM/DD') || '',
     }));

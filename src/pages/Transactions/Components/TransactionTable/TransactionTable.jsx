@@ -1,5 +1,6 @@
 import { useApp } from '../../../../context/AppContext';
 
+import './TransactionTable.css';
 import '../../Transaction.css';
 
 const TransactionTable = () => {
@@ -17,7 +18,7 @@ const TransactionTable = () => {
         </tr>
       </thead>
       <tbody>
-        {paginatedTransactions.map(transaction => (
+        {paginatedTransactions.map((transaction) => (
           <tr key={transaction.id}>
             <td>{transaction.date || 'تاریخ نامعلوم'}</td>
             <td className="income">
@@ -34,21 +35,31 @@ const TransactionTable = () => {
             <td className="actions-cell">
               <div className="dropdown">
                 <button className="dropdown-toggle">
-                  <img src="public/icons/dot.svg" width="24" height="24" />
+                  <img src="/icons/dot.svg" alt="" width="24" height="24" />
                 </button>
                 <div className="dropdown-menu">
                   <button
-                    className="dropdown-item edit-btn"
+                    className="dropdown-item"
                     onClick={() => openEditModal(transaction)}
                   >
-                    <img src="public/icons/edit.svg" width="16" height="16" />
+                    <img
+                      src="/icons/edit.svg"
+                      alt="ویرایش"
+                      width="16"
+                      height="16"
+                    />
                     ویرایش
                   </button>
                   <button
-                    className="dropdown-item delete-btn"
+                    className="dropdown-item"
                     onClick={() => openDeleteModal(transaction)}
                   >
-                    <img src="public/icons/trash.svg" width="16" height="16" />
+                    <img
+                      src="/icons/trash.svg"
+                      alt="حذف"
+                      width="16"
+                      height="16"
+                    />
                     حذف
                   </button>
                 </div>

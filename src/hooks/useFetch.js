@@ -1,4 +1,4 @@
-import { useCallback, useEffect,useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 
 const initialState = {
   data: [],
@@ -24,7 +24,7 @@ function fetchReducer(state, action) {
       return {
         ...state,
         loading: false,
-        data: state.data.map(item =>
+        data: state.data.map((item) =>
           item.id === action.payload.id
             ? { ...item, ...action.payload.updatedData }
             : item
@@ -34,7 +34,7 @@ function fetchReducer(state, action) {
       return {
         ...state,
         loading: false,
-        data: state.data.filter(item => item.id !== action.payload),
+        data: state.data.filter((item) => item.id !== action.payload),
       };
     default:
       return state;
@@ -46,6 +46,13 @@ export function useFetch(initialUrl) {
 
   const fetcher = useCallback(
     async ({ url = initialUrl, method = 'GET', body = null }) => {
+      const isAuth = localStorage.getItem('isAuthenticated') === 'true';
+
+      if (!isAuth && window.location.pathname !== '/login') {
+        window.location.href = '/login';
+        return;
+      }
+
       dispatch({ type: 'SET_LOADING' });
 
       try {
@@ -104,8 +111,11 @@ export function useFetch(initialUrl) {
   );
 
   useEffect(() => {
-    if (initialUrl) {fetcher({ method: 'GET' });}
-  }, []);
+    if (!initialUrl) {
+      return;
+    }
+    fetcher({ method: 'GET' });
+  }, [initialUrl, fetcher]);
 
   useEffect(() => {
     if (state.error) {

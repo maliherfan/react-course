@@ -73,11 +73,9 @@ export default [
           vars: 'all',
           args: 'after-used',
           argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
           caughtErrorsIgnorePattern: '^_',
           ignoreRestSiblings: true,
-
-          varsIgnorePattern: '^(_|BrowserRouter|Navigate|Route|Routes|Link|Outlet|StrictMode|Cell|Legend|Pie|PieChart|ResponsiveContainer|Tooltip|Bar|BarChart|XAxis|YAxis|DatePicker|AppProvider|Layout|Dashboard|NotFound|Transaction|ProductHeader|App|CompactFilterBar|EmptyState|ExpensePieChart|MonthlyBarChart|MonthlyDataSection|SummarySection|TransactionForm|TransactionModal|TransactionCard|TransactionHeader|TransactionTable|Pagination)$',
+          varsIgnorePattern: '^[A-Z]'
         },
       ],
       

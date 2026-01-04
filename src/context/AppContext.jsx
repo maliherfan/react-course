@@ -8,16 +8,19 @@ import {
 
 import useFetch from '../hooks/useFetch';
 
-// context part
 const AppContext = createContext();
-export const useApp = () => useContext(AppContext);
+
+export const useApp = () => {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error('useApp must be used within <AppProvider>');
+  }
+  return context;
+};
 
 const API_BASE_URL = 'http://localhost:3001/transactions';
 
-// context provider
 export const AppProvider = ({ children }) => {
-  // just call once whenever component mounts
-  // first loading of data & get fetcher for future CRUD actions
   const { data, loading, error, fetcher } = useFetch(`${API_BASE_URL}`);
 
   const [filters, setFilters] = useState({
@@ -32,14 +35,8 @@ export const AppProvider = ({ children }) => {
     itemsPerPage: 10,
   });
 
-  // without filter
-  const sortedTransactions = useMemo(() => {
-    return [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
-  }, [data]);
-
-  // filter based on date
   const filterTransactions = useCallback((transactions, filters) => {
-    return transactions.filter(transaction => {
+    return transactions.filter((transaction) => {
       if (filters.startDate && transaction.date) {
         const transactionDate = new Date(transaction.date);
         const startDate = new Date(filters.startDate);
@@ -60,7 +57,6 @@ export const AppProvider = ({ children }) => {
     });
   }, []);
 
-  // sorting
   const sortTransactions = useCallback((transactions, sortBy) => {
     return [...transactions].sort((a, b) => {
       switch (sortBy) {
@@ -94,17 +90,10 @@ export const AppProvider = ({ children }) => {
     });
   }, []);
 
-  // Derived State:sort and filtered
   const filteredAndSortedTransactions = useMemo(() => {
-    const filtered = filterTransactions(sortedTransactions, filters);
+    const filtered = filterTransactions(data, filters);
     return sortTransactions(filtered, sortBy);
-  }, [
-    sortedTransactions,
-    filters,
-    sortBy,
-    filterTransactions,
-    sortTransactions,
-  ]);
+  }, [data, filters, sortBy]);
 
   const paginatedTransactions = useMemo(() => {
     const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
@@ -118,18 +107,14 @@ export const AppProvider = ({ children }) => {
     );
   }, [filteredAndSortedTransactions, pagination.itemsPerPage]);
 
-  const changePage = pageNumber => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setPagination(prev => ({
-        ...prev,
-        currentPage: pageNumber,
-      }));
-    }
-  };
+  const changePage = useCallback(
+    (pageNumber) => {
+      if (pageNumber < 1 || pageNumber > totalPages) return;
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      setPagination((prev) => ({ ...prev, currentPage: pageNumber }));
+    },[totalPages]);
 
-  // CRUD operations
-  const addTransaction = transactionData =>
+  const addTransaction = (transactionData) =>
     fetcher({
       url: API_BASE_URL,
       method: 'POST',
@@ -143,13 +128,12 @@ export const AppProvider = ({ children }) => {
       body: { id, ...updatedData },
     });
 
-  const deleteTransaction = id =>
+  const deleteTransaction = (id) =>
     fetcher({
       url: `${API_BASE_URL}/${id}`,
       method: 'DELETE',
     });
 
-  // modal management
   const [modalState, setModalState] = useState({
     isOpen: false,
     type: null,
@@ -162,55 +146,46 @@ export const AppProvider = ({ children }) => {
     transaction,
   });
 
-  // modal functions
   const openAddModal = () => setModalState(createModal('add'));
-  const openEditModal = transaction =>
+  const openEditModal = (transaction) =>
     setModalState(createModal('edit', transaction));
-  const openDeleteModal = transaction =>
+  const openDeleteModal = (transaction) =>
     setModalState(createModal('delete', transaction));
   const closeModal = () =>
     setModalState({ isOpen: false, type: null, transaction: null });
 
-  const updateFilters = newFilters => {
+  const updateFilters = (newFilters) => {
     setFilters(newFilters);
-    setPagination(prev => ({ ...prev, currentPage: 1 }));
+    setPagination((prev) => ({ ...prev, currentPage: 1 }));
   };
 
-  const updateSortBy = newSortBy => {
+  const updateSortBy = (newSortBy) => {
     setSortBy(newSortBy);
-    setPagination(prev => ({ ...prev, currentPage: 1 }));
+    setPagination((prev) => ({ ...prev, currentPage: 1 }));
   };
 
   const value = useMemo(
     () => ({
-      // data
-      transactions: sortedTransactions,
+      transactions: data,
       filteredTransactions: filteredAndSortedTransactions,
-      
-      // pagination
+
       paginatedTransactions,
       pagination,
       totalPages,
       changePage,
 
-      // filter & sort
       filters,
       sortBy,
-
-      // functions
       updateFilters,
       updateSortBy,
 
-      // status
       loading,
       error,
 
-      // CRUD
       addTransaction,
       updateTransaction,
       deleteTransaction,
 
-      // modal
       modalState,
       openAddModal,
       openEditModal,
@@ -218,7 +193,7 @@ export const AppProvider = ({ children }) => {
       closeModal,
     }),
     [
-      sortedTransactions,
+      data,
       filteredAndSortedTransactions,
       paginatedTransactions,
       pagination,

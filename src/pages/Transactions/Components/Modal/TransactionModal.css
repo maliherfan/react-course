@@ -27,11 +27,11 @@
   overflow-y: auto;
 }
 
-.line{
+.line {
   display: none;
   width: 24px;
   height: 4px;
-  background-color: #D1D4DD;
+  background-color: #d1d4dd;
   margin: 15px auto 0px;
 }
 
@@ -94,15 +94,16 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 400;
-  /* padding: 8px 16px; */
+  padding: 8px 16px;
   height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'vazirmatn', 'Tahoma', 'Arial', 'sans-serif';
 }
 
 .btn-cancel {
-  height: 32px;  
+  height: 32px;
   background: white;
   color: #333;
   border: 1px solid #d0d7de;
@@ -115,7 +116,9 @@
   align-items: center;
 }
 
-.close-btn:focus, .btn-delete:focus, .btn-cancel:focus{
+.close-btn:focus,
+.btn-delete:focus,
+.btn-cancel:focus {
   outline: none;
 }
 
@@ -128,6 +131,10 @@
   border-top-color: transparent;
   animation: spin 1s linear infinite;
   margin-left: 8px;
+}
+
+.error-message {
+  color: #ef4e4e;
 }
 
 @keyframes spin {
@@ -158,7 +165,7 @@
     align-items: flex-end;
   }
 
-  .line{
+  .line {
     display: block;
   }
 
@@ -178,7 +185,8 @@
     gap: 10px;
   }
 
-  .btn-cancel, .btn-delete{
+  .btn-cancel,
+  .btn-delete {
     flex: 1;
   }
 }

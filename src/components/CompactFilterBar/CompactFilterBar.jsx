@@ -6,20 +6,19 @@ import { toEnglishNumbers } from '../../utils/numberUtils';
 
 import './CompactFilterBar.css';
 
-const CompactFilterBar = ({ 
-  filters, 
-  onFilterChange, 
-  sortBy, 
-  onSortChange
+const CompactFilterBar = ({
+  filters,
+  onFilterChange,
+  sortBy,
+  onSortChange,
 }) => {
-  
   const handleDateChange = (date, field) => {
     const dateString = date?.format?.('YYYY/MM/DD') || '';
     const englishDate = toEnglishNumbers(dateString);
-    
+
     const newFilters = {
       ...filters,
-      [field]: englishDate
+      [field]: englishDate,
     };
     onFilterChange(newFilters);
   };
@@ -80,8 +79,8 @@ const CompactFilterBar = ({
         <div className="filter-group">
           <label>ترتیب نمایش</label>
           <div className="sort-select-wrapper">
-            <select 
-              value={sortBy} 
+            <select
+              value={sortBy}
               onChange={handleSortChange}
               className="sort-select"
             >

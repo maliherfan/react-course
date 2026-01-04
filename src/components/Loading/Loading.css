@@ -1,0 +1,31 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #dcdfe3;
+  gap: 20px;
+}
+
+.loading-spinner {
+  width: 70px;
+  height: 70px;
+  border: 8px solid rgba(14, 51, 243, 0.1);
+  border-top: 8px solid #0e33f3;
+  border-radius: 50%;
+  animation: loading-spin 1.5s linear infinite;
+}
+
+.loading-message {
+  color: #242d35;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useApp } from '../../../../context/AppContext';
 
 import TransactionForm from './Form/TransactionForm';
@@ -7,6 +9,7 @@ import './TransactionModal.css';
 const TransactionModal = () => {
   const { modalState, closeModal, deleteTransaction, loading } = useApp();
   const { type: modalType, transaction } = modalState;
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getTitle = () => {
     switch (modalType) {
@@ -22,11 +25,12 @@ const TransactionModal = () => {
   };
 
   const handleDelete = async () => {
+    setErrorMessage('');
     try {
       await deleteTransaction(transaction.id);
       closeModal();
-    } catch (error) {
-      console.error('Delete error:', error);
+    } catch {
+      setErrorMessage('❌ خطا در حذف تراکنش. لطفاً دوباره تلاش کنید.');
     }
   };
 
@@ -43,6 +47,9 @@ const TransactionModal = () => {
         {modalType === 'delete' ? (
           <div className="delete-content">
             <p className="delete-question">از حذف تراکنش اطمینان دارید؟</p>
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
             <div className="form-actions">
               <button
                 type="button"
@@ -61,7 +68,7 @@ const TransactionModal = () => {
                 {loading ? (
                   <>
                     <span className="loading-spinner"></span>
-                    در حال حذف... 
+                    در حال حذف...
                   </>
                 ) : (
                   'حذف'
