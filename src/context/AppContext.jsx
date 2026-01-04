@@ -18,7 +18,9 @@ export const useApp = () => {
   return context;
 };
 
-const API_BASE_URL = 'http://localhost:3001/transactions';
+// const API_BASE_URL = 'http://localhost:3001/transactions';
+const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE_URL = `${baseURL}/transactions`;
 
 export const AppProvider = ({ children }) => {
   const { data, loading, error, fetcher } = useFetch(`${API_BASE_URL}`);

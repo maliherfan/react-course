@@ -33,7 +33,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = useCallback(async (email, password) => {
     try {
-      const response = await fetch('http://localhost:3001/users');
+      // const response = await fetch('http://localhost:3001/users');
+      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${baseURL}/users`);
 
       if (!response.ok) {
         throw new Error('خطا در ارتباط با سرور');
