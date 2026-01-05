@@ -35,8 +35,9 @@ export const AuthProvider = ({ children }) => {
     try {
       // const response = await fetch('http://localhost:3001/users');
       // const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-      const MOCKAPI_URL = 'https://corsproxy.io/https://695bc4e41d8041d5eeb855d8.mockapi.io';
-      const response = await fetch(`${MOCKAPI_URL}/users`);
+      // const MOCKAPI_URL = 'https://695bc4e41d8041d5eeb855d8.mockapi.io';
+      const baseURL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${baseURL}/users`);
 
       if (!response.ok) {
         throw new Error('خطا در ارتباط با سرور');
