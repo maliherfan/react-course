@@ -20,7 +20,7 @@ export const useApp = () => {
 
 // const API_BASE_URL = 'http://localhost:3001/transactions';
 // const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-const MOCKAPI_URL = 'https://695bc4e41d8041d5eeb855d8.mockapi.io';
+const MOCKAPI_URL = 'https://corsproxy.io/https://695bc4e41d8041d5eeb855d8.mockapi.io';
 const API_BASE_URL = `${MOCKAPI_URL}/transactions`;
 
 export const AppProvider = ({ children }) => {
