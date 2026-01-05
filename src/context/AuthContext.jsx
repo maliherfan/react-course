@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = useCallback(() => {
     localStorage.removeItem('isAuthenticated');
-    window.location.href = './login';
+    window.location.pathname = '/login';
   }, []);
 
   const value = useMemo(
