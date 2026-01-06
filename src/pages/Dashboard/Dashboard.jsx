@@ -10,11 +10,13 @@ import MonthlyDataSection from './Components/MonthlyDataSection/MonthlyDataSecti
 import SummarySection from './Components/SummarySection/SummarySection';
 
 import './Dashboard.css';
+import Loading from '../../components/Loading/Loading';
 
 const Dashboard = () => {
   const {
     transactions,
     filteredTransactions,
+    loading,
     filters,
     sortBy,
     updateFilters,
@@ -104,6 +106,10 @@ const Dashboard = () => {
       monthlyData: recentMonths,
     };
   }, [filteredTransactions]);
+
+  if (loading) {
+    return <Loading message="در حال بارگذاری اطلاعات مالی ..." />;
+  }
 
   return (
     <div className="dashboard-container">

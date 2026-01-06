@@ -3,12 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 70vh;
   background-color: #dcdfe3;
   gap: 20px;
 }
 
-.loading-spinner {
+.spinner {
   width: 70px;
   height: 70px;
   border: 8px solid rgba(14, 51, 243, 0.1);

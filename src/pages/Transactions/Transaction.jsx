@@ -1,5 +1,6 @@
 import CompactFilterBar from '../../components/CompactFilterBar/CompactFilterBar';
 import EmptyState from '../../components/EmptyState/EmptyState';
+import Loading from '../../components/Loading/Loading';
 import { useApp } from '../../context/AppContext';
 
 import Pagination from './Components/Pagination/Pagination';
@@ -15,6 +16,7 @@ const Transaction = () => {
     transactions,
     filteredTransactions,
     paginatedTransactions,
+    loading,
     modalState,
     filters,
     sortBy,
@@ -24,6 +26,10 @@ const Transaction = () => {
 
   const hasTransactions = transactions.length > 0;
   const hasFilteredResults = filteredTransactions.length > 0;
+
+  if (loading) {
+    return <Loading message="در حال بارگذاری لیست هزینه ها ..." />;
+  }
 
   return (
     <div className="transaction-container">

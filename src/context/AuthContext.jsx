@@ -3,11 +3,8 @@ import {
   useContext,
   useMemo,
   useState,
-  useEffect,
   useCallback,
 } from 'react';
-
-import './AuthContext.css';
 
 const AuthContext = createContext();
 
@@ -20,16 +17,9 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authLoading, setAuthLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      const savedAuth = localStorage.getItem('isAuthenticated') === 'true';
-      setIsAuthenticated(savedAuth);
-      setAuthLoading(false);
-    }, 1000);
-  }, []);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => localStorage.getItem('isAuthenticated') === 'true'
+  );
 
   const login = useCallback(async (email, password) => {
     try {
@@ -75,20 +65,11 @@ export const AuthProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       isAuthenticated,
-      authLoading,
       login,
       logout,
     }),
-    [isAuthenticated, authLoading, login, logout]
+    [isAuthenticated, login, logout]
   );
-
-  if (authLoading) {
-    return (
-      <div className="auth-loading-container">
-        <div className="auth-loading-spinner"></div>
-      </div>
-    );
-  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
